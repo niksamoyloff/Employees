@@ -179,6 +179,7 @@
             this.DataGridViewPositions.RowTemplate.Height = 24;
             this.DataGridViewPositions.Size = new System.Drawing.Size(530, 368);
             this.DataGridViewPositions.TabIndex = 9;
+            this.DataGridViewPositions.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewPositions_RowHeaderMouseClick);
             // 
             // ButtonDeletePosition
             // 
@@ -210,7 +211,7 @@
             // 
             // comboBoxNameArea
             // 
-            this.comboBoxNameArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.areasBindingSource, "Area", true));
+            this.comboBoxNameArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
             this.comboBoxNameArea.DataSource = this.areasBindingSource;
             this.comboBoxNameArea.DisplayMember = "Area";
             this.comboBoxNameArea.FormattingEnabled = true;

@@ -117,5 +117,12 @@ namespace Employees
         {
             this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSet.Areas);
         }
+
+        private void DataGridViewPositions_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNamePosition.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxNameArea.SelectedIndex = (int)DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value - 1;
+        }
     }
 }
