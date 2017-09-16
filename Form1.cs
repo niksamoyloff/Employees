@@ -122,7 +122,21 @@ namespace Employees
         {
             ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxNamePosition.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxNameArea.SelectedIndex = (int)DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value - 1;
+            comboBoxNameArea.SelectedValue = DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value.ToString();
+        }
+
+        private void ButtonChangePosition_Click(object sender, EventArgs e)
+        {
+            if (textBoxNamePosition.Text != "")
+            {
+                paramsPosition.Add(new SqlParameter("@id", ID));
+                paramsPosition.Add(new SqlParameter("@position", textBoxNamePosition.Text));
+                paramsPosition.Add(new SqlParameter("@area", comboBoxNameArea.SelectedValue.ToString()));
+                position.ChangeRecord(position.SqlUpdateCmd, paramsPosition);
+                MessageBox.Show("Запись изменена.");
+                position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
+                ClearParamsPosition();
+            }
         }
     }
 }

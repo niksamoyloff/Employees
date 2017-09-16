@@ -44,8 +44,8 @@
             this.ButtonChangePosition = new System.Windows.Forms.Button();
             this.ButtonAddPosition = new System.Windows.Forms.Button();
             this.comboBoxNameArea = new System.Windows.Forms.ComboBox();
-            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
+            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNamePosition = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -55,8 +55,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewArea)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -198,6 +198,7 @@
             this.ButtonChangePosition.TabIndex = 7;
             this.ButtonChangePosition.Text = "Изменить";
             this.ButtonChangePosition.UseVisualStyleBackColor = true;
+            this.ButtonChangePosition.Click += new System.EventHandler(this.ButtonChangePosition_Click);
             // 
             // ButtonAddPosition
             // 
@@ -221,15 +222,15 @@
             this.comboBoxNameArea.TabIndex = 3;
             this.comboBoxNameArea.ValueMember = "Area";
             // 
-            // areasBindingSource
-            // 
-            this.areasBindingSource.DataMember = "Areas";
-            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSet;
-            // 
             // databaseOfEmployeesDataSet
             // 
             this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
             this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // areasBindingSource
+            // 
+            this.areasBindingSource.DataMember = "Areas";
+            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSet;
             // 
             // label2
             // 
@@ -278,8 +279,8 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
