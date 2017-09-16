@@ -189,6 +189,7 @@
             this.ButtonDeletePosition.TabIndex = 8;
             this.ButtonDeletePosition.Text = "Удалить";
             this.ButtonDeletePosition.UseVisualStyleBackColor = true;
+            this.ButtonDeletePosition.Click += new System.EventHandler(this.ButtonDeletePosition_Click);
             // 
             // ButtonChangePosition
             // 

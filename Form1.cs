@@ -138,5 +138,17 @@ namespace Employees
                 ClearParamsPosition();
             }
         }
+
+        private void ButtonDeletePosition_Click(object sender, EventArgs e)
+        {
+            if (ID != 0)
+            {
+                paramsPosition.Add(new SqlParameter("@id", ID));
+                position.ChangeRecord(position.SqlDeleteCmd, paramsPosition);
+                MessageBox.Show("Запись удалена.");
+                position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
+                ClearParamsPosition();                
+            }
+        }
     }
 }
