@@ -150,5 +150,12 @@ namespace Employees
                 ClearParamsPosition();                
             }
         }
+
+        // Worker methods.
+        private void ClearParamsWorker()
+        {
+            ID = 0;
+
+        }
     }
 }
