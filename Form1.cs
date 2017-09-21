@@ -23,6 +23,7 @@ namespace Employees
             InitializeComponent();
             area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
             position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
+            DataGridViewArea.Columns[0].Visible = false;
         }
         
         // Area methods.

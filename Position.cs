@@ -10,7 +10,7 @@ namespace Employees
     {
         private int idPosition;
         private string namePosition;
-        private string sqlDisplayCmd = "SELECT Positions.IdPosition, Positions.Position, Areas.Area " +
+        private string sqlDisplayCmd = "SELECT Positions.IdPosition, Positions.Position 'Должность', Areas.Area 'Участок'" +
             "FROM [Positions],[Areas] " +
             "WHERE Positions.Area=Areas.IdArea";
         private string sqlInsertCmd = "INSERT INTO [Positions] (Position, Area) " +
