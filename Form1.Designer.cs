@@ -49,8 +49,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNamePosition = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBoxWorkerArea = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.dataGridViewWorkers = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteWorker = new System.Windows.Forms.Button();
             this.ButtonChangeWorker = new System.Windows.Forms.Button();
@@ -59,10 +62,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNameWorker = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxWorkerArea = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPageAreas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewArea)).BeginInit();
@@ -281,10 +281,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Название должности:";
             // 
-            // areasTableAdapter
-            // 
-            this.areasTableAdapter.ClearBeforeFill = true;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.comboBoxWorkerArea);
@@ -306,6 +302,44 @@
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Работники";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxWorkerArea
+            // 
+            this.comboBoxWorkerArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxWorkerArea.FormattingEnabled = true;
+            this.comboBoxWorkerArea.Location = new System.Drawing.Point(408, 57);
+            this.comboBoxWorkerArea.Name = "comboBoxWorkerArea";
+            this.comboBoxWorkerArea.Size = new System.Drawing.Size(136, 24);
+            this.comboBoxWorkerArea.TabIndex = 21;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(405, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 18);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Участок:";
+            // 
+            // comboBoxWorkerGroup
+            // 
+            this.comboBoxWorkerGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxWorkerGroup.FormattingEnabled = true;
+            this.comboBoxWorkerGroup.Location = new System.Drawing.Point(820, 57);
+            this.comboBoxWorkerGroup.Name = "comboBoxWorkerGroup";
+            this.comboBoxWorkerGroup.Size = new System.Drawing.Size(82, 24);
+            this.comboBoxWorkerGroup.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(817, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(85, 18);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Группа ЭБ:";
             // 
             // dataGridViewWorkers
             // 
@@ -348,7 +382,7 @@
             // 
             this.comboBoxWorkerPosition.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
             this.comboBoxWorkerPosition.FormattingEnabled = true;
-            this.comboBoxWorkerPosition.Location = new System.Drawing.Point(404, 57);
+            this.comboBoxWorkerPosition.Location = new System.Drawing.Point(572, 57);
             this.comboBoxWorkerPosition.Name = "comboBoxWorkerPosition";
             this.comboBoxWorkerPosition.Size = new System.Drawing.Size(218, 24);
             this.comboBoxWorkerPosition.TabIndex = 13;
@@ -357,7 +391,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(401, 26);
+            this.label3.Location = new System.Drawing.Point(569, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 18);
             this.label3.TabIndex = 12;
@@ -380,43 +414,9 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "ФИО работника:";
             // 
-            // comboBoxWorkerGroup
+            // areasTableAdapter
             // 
-            this.comboBoxWorkerGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
-            this.comboBoxWorkerGroup.FormattingEnabled = true;
-            this.comboBoxWorkerGroup.Location = new System.Drawing.Point(820, 57);
-            this.comboBoxWorkerGroup.Name = "comboBoxWorkerGroup";
-            this.comboBoxWorkerGroup.Size = new System.Drawing.Size(82, 24);
-            this.comboBoxWorkerGroup.TabIndex = 19;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(817, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(85, 18);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Группа ЭБ:";
-            // 
-            // comboBoxWorkerArea
-            // 
-            this.comboBoxWorkerArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
-            this.comboBoxWorkerArea.FormattingEnabled = true;
-            this.comboBoxWorkerArea.Location = new System.Drawing.Point(654, 57);
-            this.comboBoxWorkerArea.Name = "comboBoxWorkerArea";
-            this.comboBoxWorkerArea.Size = new System.Drawing.Size(136, 24);
-            this.comboBoxWorkerArea.TabIndex = 21;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(651, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 18);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Участок:";
+            this.areasTableAdapter.ClearBeforeFill = true;
             // 
             // Form1
             // 
