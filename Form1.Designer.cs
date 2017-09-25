@@ -44,8 +44,6 @@
             this.ButtonChangePosition = new System.Windows.Forms.Button();
             this.ButtonAddPosition = new System.Windows.Forms.Button();
             this.comboBoxNameArea = new System.Windows.Forms.ComboBox();
-            this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
-            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNamePosition = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +52,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.dataGridViewWorkers = new System.Windows.Forms.DataGridView();
+            this.DataGridViewWorkers = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteWorker = new System.Windows.Forms.Button();
             this.ButtonChangeWorker = new System.Windows.Forms.Button();
             this.ButtonAddWorker = new System.Windows.Forms.Button();
@@ -62,16 +60,28 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNameWorker = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter();
+            this.databaseOfEmployeesDataSetAreas = new Employees.DatabaseOfEmployeesDataSetAreas();
+            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetAreasTableAdapters.AreasTableAdapter();
+            this.databaseOfEmployeesDataSetPositions = new Employees.DatabaseOfEmployeesDataSetPositions();
+            this.positionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.positionsTableAdapter = new Employees.DatabaseOfEmployeesDataSetPositionsTableAdapters.PositionsTableAdapter();
+            this.databaseOfEmployeesDataSetGroups = new Employees.DatabaseOfEmployeesDataSetGroups();
+            this.groupsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupsTableAdapter = new Employees.DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPageAreas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewArea)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetAreas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetGroups)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -234,7 +244,7 @@
             // 
             // comboBoxNameArea
             // 
-            this.comboBoxNameArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxNameArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSetAreas, "Areas.Area", true));
             this.comboBoxNameArea.DataSource = this.areasBindingSource;
             this.comboBoxNameArea.DisplayMember = "Area";
             this.comboBoxNameArea.FormattingEnabled = true;
@@ -243,16 +253,6 @@
             this.comboBoxNameArea.Size = new System.Drawing.Size(102, 24);
             this.comboBoxNameArea.TabIndex = 3;
             this.comboBoxNameArea.ValueMember = "Area";
-            // 
-            // databaseOfEmployeesDataSet
-            // 
-            this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
-            this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // areasBindingSource
-            // 
-            this.areasBindingSource.DataMember = "Areas";
-            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSet;
             // 
             // label2
             // 
@@ -287,7 +287,7 @@
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.comboBoxWorkerGroup);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.dataGridViewWorkers);
+            this.tabPage2.Controls.Add(this.DataGridViewWorkers);
             this.tabPage2.Controls.Add(this.ButtonDeleteWorker);
             this.tabPage2.Controls.Add(this.ButtonChangeWorker);
             this.tabPage2.Controls.Add(this.ButtonAddWorker);
@@ -305,12 +305,15 @@
             // 
             // comboBoxWorkerArea
             // 
-            this.comboBoxWorkerArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxWorkerArea.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSetAreas, "Areas.Area", true));
+            this.comboBoxWorkerArea.DataSource = this.areasBindingSource;
+            this.comboBoxWorkerArea.DisplayMember = "Area";
             this.comboBoxWorkerArea.FormattingEnabled = true;
             this.comboBoxWorkerArea.Location = new System.Drawing.Point(408, 57);
             this.comboBoxWorkerArea.Name = "comboBoxWorkerArea";
             this.comboBoxWorkerArea.Size = new System.Drawing.Size(136, 24);
             this.comboBoxWorkerArea.TabIndex = 21;
+            this.comboBoxWorkerArea.ValueMember = "Area";
             // 
             // label6
             // 
@@ -324,12 +327,15 @@
             // 
             // comboBoxWorkerGroup
             // 
-            this.comboBoxWorkerGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxWorkerGroup.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSetGroups, "Groups.GroupOfES", true));
+            this.comboBoxWorkerGroup.DataSource = this.groupsBindingSource;
+            this.comboBoxWorkerGroup.DisplayMember = "GroupOfES";
             this.comboBoxWorkerGroup.FormattingEnabled = true;
             this.comboBoxWorkerGroup.Location = new System.Drawing.Point(820, 57);
             this.comboBoxWorkerGroup.Name = "comboBoxWorkerGroup";
             this.comboBoxWorkerGroup.Size = new System.Drawing.Size(82, 24);
             this.comboBoxWorkerGroup.TabIndex = 19;
+            this.comboBoxWorkerGroup.ValueMember = "GroupOfES";
             // 
             // label5
             // 
@@ -341,15 +347,15 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Группа ЭБ:";
             // 
-            // dataGridViewWorkers
+            // DataGridViewWorkers
             // 
-            this.dataGridViewWorkers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridViewWorkers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewWorkers.Location = new System.Drawing.Point(156, 99);
-            this.dataGridViewWorkers.Name = "dataGridViewWorkers";
-            this.dataGridViewWorkers.RowTemplate.Height = 24;
-            this.dataGridViewWorkers.Size = new System.Drawing.Size(745, 334);
-            this.dataGridViewWorkers.TabIndex = 17;
+            this.DataGridViewWorkers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DataGridViewWorkers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewWorkers.Location = new System.Drawing.Point(156, 99);
+            this.DataGridViewWorkers.Name = "DataGridViewWorkers";
+            this.DataGridViewWorkers.RowTemplate.Height = 24;
+            this.DataGridViewWorkers.Size = new System.Drawing.Size(745, 334);
+            this.DataGridViewWorkers.TabIndex = 17;
             // 
             // ButtonDeleteWorker
             // 
@@ -377,15 +383,19 @@
             this.ButtonAddWorker.TabIndex = 14;
             this.ButtonAddWorker.Text = "Добавить";
             this.ButtonAddWorker.UseVisualStyleBackColor = true;
+            this.ButtonAddWorker.Click += new System.EventHandler(this.ButtonAddWorker_Click);
             // 
             // comboBoxWorkerPosition
             // 
-            this.comboBoxWorkerPosition.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSet, "Areas.Area", true));
+            this.comboBoxWorkerPosition.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.databaseOfEmployeesDataSetPositions, "Positions.Position", true));
+            this.comboBoxWorkerPosition.DataSource = this.positionsBindingSource;
+            this.comboBoxWorkerPosition.DisplayMember = "Position";
             this.comboBoxWorkerPosition.FormattingEnabled = true;
             this.comboBoxWorkerPosition.Location = new System.Drawing.Point(572, 57);
             this.comboBoxWorkerPosition.Name = "comboBoxWorkerPosition";
             this.comboBoxWorkerPosition.Size = new System.Drawing.Size(218, 24);
             this.comboBoxWorkerPosition.TabIndex = 13;
+            this.comboBoxWorkerPosition.ValueMember = "Position";
             // 
             // label3
             // 
@@ -414,9 +424,47 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "ФИО работника:";
             // 
+            // databaseOfEmployeesDataSetAreas
+            // 
+            this.databaseOfEmployeesDataSetAreas.DataSetName = "DatabaseOfEmployeesDataSetAreas";
+            this.databaseOfEmployeesDataSetAreas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // areasBindingSource
+            // 
+            this.areasBindingSource.DataMember = "Areas";
+            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSetAreas;
+            // 
             // areasTableAdapter
             // 
             this.areasTableAdapter.ClearBeforeFill = true;
+            // 
+            // databaseOfEmployeesDataSetPositions
+            // 
+            this.databaseOfEmployeesDataSetPositions.DataSetName = "DatabaseOfEmployeesDataSetPositions";
+            this.databaseOfEmployeesDataSetPositions.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // positionsBindingSource
+            // 
+            this.positionsBindingSource.DataMember = "Positions";
+            this.positionsBindingSource.DataSource = this.databaseOfEmployeesDataSetPositions;
+            // 
+            // positionsTableAdapter
+            // 
+            this.positionsTableAdapter.ClearBeforeFill = true;
+            // 
+            // databaseOfEmployeesDataSetGroups
+            // 
+            this.databaseOfEmployeesDataSetGroups.DataSetName = "DatabaseOfEmployeesDataSetGroups";
+            this.databaseOfEmployeesDataSetGroups.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // groupsBindingSource
+            // 
+            this.groupsBindingSource.DataMember = "Groups";
+            this.groupsBindingSource.DataSource = this.databaseOfEmployeesDataSetGroups;
+            // 
+            // groupsTableAdapter
+            // 
+            this.groupsTableAdapter.ClearBeforeFill = true;
             // 
             // Form1
             // 
@@ -434,11 +482,15 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetAreas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetGroups)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -463,13 +515,10 @@
         private System.Windows.Forms.Button ButtonChangePosition;
         private System.Windows.Forms.Button ButtonAddPosition;
         private System.Windows.Forms.ComboBox comboBoxNameArea;
-        private DatabaseOfEmployeesDataSet databaseOfEmployeesDataSet;
-        private System.Windows.Forms.BindingSource areasBindingSource;
-        private DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter areasTableAdapter;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ComboBox comboBoxWorkerGroup;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DataGridView dataGridViewWorkers;
+        private System.Windows.Forms.DataGridView DataGridViewWorkers;
         private System.Windows.Forms.Button ButtonDeleteWorker;
         private System.Windows.Forms.Button ButtonChangeWorker;
         private System.Windows.Forms.Button ButtonAddWorker;
@@ -479,6 +528,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxWorkerArea;
         private System.Windows.Forms.Label label6;
+        private DatabaseOfEmployeesDataSetAreas databaseOfEmployeesDataSetAreas;
+        private System.Windows.Forms.BindingSource areasBindingSource;
+        private DatabaseOfEmployeesDataSetAreasTableAdapters.AreasTableAdapter areasTableAdapter;
+        private DatabaseOfEmployeesDataSetPositions databaseOfEmployeesDataSetPositions;
+        private System.Windows.Forms.BindingSource positionsBindingSource;
+        private DatabaseOfEmployeesDataSetPositionsTableAdapters.PositionsTableAdapter positionsTableAdapter;
+        private DatabaseOfEmployeesDataSetGroups databaseOfEmployeesDataSetGroups;
+        private System.Windows.Forms.BindingSource groupsBindingSource;
+        private DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter groupsTableAdapter;
     }
 }
 

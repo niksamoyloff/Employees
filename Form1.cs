@@ -15,14 +15,17 @@ namespace Employees
         int ID = 0;
         Area area = new Area();
         Position position = new Position();
+        Worker worker = new Worker();
         List<SqlParameter> paramsArea = new List<SqlParameter>();
         List<SqlParameter> paramsPosition = new List<SqlParameter>();
+        List<SqlParameter> paramsWorker = new List<SqlParameter>();
 
         public Form1()
         {
             InitializeComponent();
             area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
             position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
+            worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
             DataGridViewArea.Columns[0].Visible = false;
         }
         
@@ -116,7 +119,13 @@ namespace Employees
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSet.Areas);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
+            this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
+            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
+            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
+
         }
 
         private void DataGridViewPositions_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -156,7 +165,27 @@ namespace Employees
         private void ClearParamsWorker()
         {
             ID = 0;
+            textBoxNameWorker.Text = "";
+            paramsWorker.Clear();
+        }
 
+        private void ButtonAddWorker_Click(object sender, EventArgs e)
+        {
+            if (textBoxNameWorker.Text != "")
+            {
+                paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
+                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.SelectedValue.ToString()));
+                worker.ChangeRecord(worker.SqlInsertCmd, paramsWorker);
+                MessageBox.Show("Запись добавлена.", "Дабавление нового работника");
+                worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+                ClearParamsWorker();
+            }
+            else
+            {
+                MessageBox.Show("Введите ФИО работника");
+            }
         }
     }
 }
