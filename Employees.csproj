@@ -46,20 +46,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Area.cs" />
-    <Compile Include="DatabaseOfEmployeesDataSetAreas.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="DATABASEOFEMPLOYEESDataSetAreas.Designer.cs">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetAreas.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseOfEmployeesDataSetAreas.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="DatabaseOfEmployeesDataSetGroups.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="DATABASEOFEMPLOYEESDataSetGroups.Designer.cs">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetGroups.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseOfEmployeesDataSetGroups.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="DatabaseOfEmployeesDataSetPositions.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="DATABASEOFEMPLOYEESDataSetPositions.Designer.cs">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetPositions.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseOfEmployeesDataSetPositions.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="DataOperations.cs" />
     <Compile Include="Form1.cs">
@@ -83,38 +83,38 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="DatabaseOfEmployeesDataSetAreas.xsc">
-      <DependentUpon>DatabaseOfEmployeesDataSetAreas.xsd</DependentUpon>
+    <None Include="DATABASEOFEMPLOYEESDataSetAreas.xsc">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetAreas.xsd</DependentUpon>
     </None>
-    <None Include="DatabaseOfEmployeesDataSetAreas.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DatabaseOfEmployeesDataSetAreas.Designer.cs</LastGenOutput>
+    <None Include="DATABASEOFEMPLOYEESDataSetAreas.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetAreas.xss">
-      <DependentUpon>DatabaseOfEmployeesDataSetAreas.xsd</DependentUpon>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetGroups.xsc">
-      <DependentUpon>DatabaseOfEmployeesDataSetGroups.xsd</DependentUpon>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetGroups.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DatabaseOfEmployeesDataSetGroups.Designer.cs</LastGenOutput>
+      <LastGenOutput>DATABASEOFEMPLOYEESDataSetAreas.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetAreas.xss">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetAreas.xsd</DependentUpon>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetGroups.xsc">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetGroups.xsd</DependentUpon>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetGroups.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetGroups.xss">
-      <DependentUpon>DatabaseOfEmployeesDataSetGroups.xsd</DependentUpon>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetPositions.xsc">
-      <DependentUpon>DatabaseOfEmployeesDataSetPositions.xsd</DependentUpon>
-    </None>
-    <None Include="DatabaseOfEmployeesDataSetPositions.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DatabaseOfEmployeesDataSetPositions.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>DATABASEOFEMPLOYEESDataSetGroups.Designer.cs</LastGenOutput>
     </None>
-    <None Include="DatabaseOfEmployeesDataSetPositions.xss">
-      <DependentUpon>DatabaseOfEmployeesDataSetPositions.xsd</DependentUpon>
+    <None Include="DATABASEOFEMPLOYEESDataSetGroups.xss">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetGroups.xsd</DependentUpon>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetPositions.xsc">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetPositions.xsd</DependentUpon>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetPositions.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DATABASEOFEMPLOYEESDataSetPositions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DATABASEOFEMPLOYEESDataSetPositions.xss">
+      <DependentUpon>DATABASEOFEMPLOYEESDataSetPositions.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

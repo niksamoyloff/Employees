@@ -356,6 +356,7 @@
             this.DataGridViewWorkers.RowTemplate.Height = 24;
             this.DataGridViewWorkers.Size = new System.Drawing.Size(745, 334);
             this.DataGridViewWorkers.TabIndex = 17;
+            this.DataGridViewWorkers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewWorkers_RowHeaderMouseClick);
             // 
             // ButtonDeleteWorker
             // 
@@ -365,6 +366,7 @@
             this.ButtonDeleteWorker.TabIndex = 16;
             this.ButtonDeleteWorker.Text = "Удалить";
             this.ButtonDeleteWorker.UseVisualStyleBackColor = true;
+            this.ButtonDeleteWorker.Click += new System.EventHandler(this.ButtonDeleteWorker_Click);
             // 
             // ButtonChangeWorker
             // 
@@ -374,6 +376,7 @@
             this.ButtonChangeWorker.TabIndex = 15;
             this.ButtonChangeWorker.Text = "Изменить";
             this.ButtonChangeWorker.UseVisualStyleBackColor = true;
+            this.ButtonChangeWorker.Click += new System.EventHandler(this.ButtonChangeWorker_Click);
             // 
             // ButtonAddWorker
             // 

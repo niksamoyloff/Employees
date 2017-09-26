@@ -28,13 +28,32 @@ namespace Employees
             worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
             DataGridViewArea.Columns[0].Visible = false;
         }
-        
-        // Area methods.
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
+            this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
+            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
+            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
+
+        }
+
+        /// <summary>
+        /// Area methods. 
+        /// </summary>
         private void ClearParamsArea()
         {
             ID = 0;
             textBoxNameArea.Text = "";
             paramsArea.Clear();
+        }
+
+        private void DataGridViewArea_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewArea.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNameArea.Text = DataGridViewArea.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void ButtonAddArea_Click(object sender, EventArgs e)
@@ -51,12 +70,6 @@ namespace Employees
             {
                 MessageBox.Show("Введите название участка.");
             }
-        }
-
-        private void DataGridViewArea_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            ID = Convert.ToInt32(DataGridViewArea.Rows[e.RowIndex].Cells[0].Value.ToString());
-            textBoxNameArea.Text = DataGridViewArea.Rows[e.RowIndex].Cells[1].Value.ToString();
         }
 
         private void ButtonChangeArea_Click(object sender, EventArgs e)
@@ -91,8 +104,10 @@ namespace Employees
                 MessageBox.Show("Выберите запись для удаления.");
             }
         }
-
-        // Position methods.
+        
+        /// <summary>
+        /// Position methods.
+        /// </summary>
         private void ClearParamsPosition()
         {
             ID = 0;
@@ -117,17 +132,6 @@ namespace Employees
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
-            this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
-            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
-            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
-
-        }
-
         private void DataGridViewPositions_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
@@ -147,6 +151,10 @@ namespace Employees
                 position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
                 ClearParamsPosition();
             }
+            else
+            {
+                MessageBox.Show("Выберете запись для изменения");
+            }
         }
 
         private void ButtonDeletePosition_Click(object sender, EventArgs e)
@@ -159,14 +167,29 @@ namespace Employees
                 position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
                 ClearParamsPosition();                
             }
+            else
+            {
+                MessageBox.Show("Выберете запись для удаления");
+            }
         }
-
-        // Worker methods.
+        
+        /// <summary>
+        /// Worker methods. 
+        /// </summary>
         private void ClearParamsWorker()
         {
             ID = 0;
             textBoxNameWorker.Text = "";
             paramsWorker.Clear();
+        }
+
+        private void DataGridViewWorkers_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewWorkers.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNameWorker.Text = DataGridViewWorkers.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxWorkerArea.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBoxWorkerPosition.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[3].Value.ToString();
+            comboBoxWorkerGroup.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
 
         private void ButtonAddWorker_Click(object sender, EventArgs e)
@@ -185,6 +208,41 @@ namespace Employees
             else
             {
                 MessageBox.Show("Введите ФИО работника");
+            }
+        }
+
+        private void ButtonChangeWorker_Click(object sender, EventArgs e)
+        {
+            if (textBoxNameWorker.Text != "")
+            {
+                paramsWorker.Add(new SqlParameter("@id", ID));
+                paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
+                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.SelectedValue.ToString()));
+                worker.ChangeRecord(worker.SqlUpdateCmd, paramsWorker);
+                MessageBox.Show("Запись изменена.", "Изменение записи");
+                worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+                ClearParamsWorker();
+            }
+            else
+            {
+                MessageBox.Show("Введите ФИО работника");
+            }
+        }
+
+        private void ButtonDeleteWorker_Click(object sender, EventArgs e)
+        {
+            if (ID != 0)
+            {
+                paramsWorker.Add(new SqlParameter("@id", ID));
+                worker.ChangeRecord(worker.SqlDeleteCmd, paramsWorker);
+                MessageBox.Show("Запись удалена", "Удаление записи");
+                worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+            }
+            else
+            {
+                MessageBox.Show("Выберете запись для удаления");
             }
         }
     }

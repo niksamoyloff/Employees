@@ -11,7 +11,7 @@ namespace Employees
 {
     public class DataOperations
     {
-        SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;User Instance = False;AttachDbFilename='C:\\USERS\\NIKSA\\DOCUMENTS\\VISUAL STUDIO 2017\\PROJECTS\\EMPLOYEES\\EMPLOYEES\\DATABASEOFEMPLOYEES.MDF';Integrated Security = True;Connect Timeout = 30");
+        SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;User Instance = False;AttachDbFilename='C:\\USERS\\NIKSA\\DOCUMENTS\\VISUAL STUDIO 2017\\PROJECTS\\EMPLOYEES\\EMPLOYEES\\BIN\\DEBUG\\DATABASEOFEMPLOYEES.MDF';Integrated Security = True;Connect Timeout = 30");
         SqlCommand cmd;
         SqlDataAdapter adapt;
 
