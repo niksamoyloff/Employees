@@ -44,6 +44,8 @@
             this.ButtonChangePosition = new System.Windows.Forms.Button();
             this.ButtonAddPosition = new System.Windows.Forms.Button();
             this.comboBoxNameArea = new System.Windows.Forms.ComboBox();
+            this.databaseOfEmployeesDataSetAreas = new Employees.DatabaseOfEmployeesDataSetAreas();
+            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNamePosition = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,37 +53,48 @@
             this.comboBoxWorkerArea = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
+            this.databaseOfEmployeesDataSetGroups = new Employees.DatabaseOfEmployeesDataSetGroups();
+            this.groupsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.DataGridViewWorkers = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteWorker = new System.Windows.Forms.Button();
             this.ButtonChangeWorker = new System.Windows.Forms.Button();
             this.ButtonAddWorker = new System.Windows.Forms.Button();
             this.comboBoxWorkerPosition = new System.Windows.Forms.ComboBox();
+            this.databaseOfEmployeesDataSetPositions = new Employees.DatabaseOfEmployeesDataSetPositions();
+            this.positionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNameWorker = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.databaseOfEmployeesDataSetAreas = new Employees.DatabaseOfEmployeesDataSetAreas();
-            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetAreasTableAdapters.AreasTableAdapter();
-            this.databaseOfEmployeesDataSetPositions = new Employees.DatabaseOfEmployeesDataSetPositions();
-            this.positionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.positionsTableAdapter = new Employees.DatabaseOfEmployeesDataSetPositionsTableAdapters.PositionsTableAdapter();
-            this.databaseOfEmployeesDataSetGroups = new Employees.DatabaseOfEmployeesDataSetGroups();
-            this.groupsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupsTableAdapter = new Employees.DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.DataGridViewSIZ = new System.Windows.Forms.DataGridView();
+            this.ButtonDeleteSIZ = new System.Windows.Forms.Button();
+            this.ButtonChangeSIZ = new System.Windows.Forms.Button();
+            this.ButtonAddSIZ = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxNameSIZ = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxInventNumbSIZ = new System.Windows.Forms.TextBox();
+            this.dateTimePickerWorkabilitySIZ = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPageAreas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewArea)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetAreas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSIZ)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -90,6 +103,7 @@
             this.tabControl1.Controls.Add(this.tabPageAreas);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -254,6 +268,16 @@
             this.comboBoxNameArea.TabIndex = 3;
             this.comboBoxNameArea.ValueMember = "Area";
             // 
+            // databaseOfEmployeesDataSetAreas
+            // 
+            this.databaseOfEmployeesDataSetAreas.DataSetName = "DatabaseOfEmployeesDataSetAreas";
+            this.databaseOfEmployeesDataSetAreas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // areasBindingSource
+            // 
+            this.areasBindingSource.DataMember = "Areas";
+            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSetAreas;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -337,6 +361,16 @@
             this.comboBoxWorkerGroup.TabIndex = 19;
             this.comboBoxWorkerGroup.ValueMember = "GroupOfES";
             // 
+            // databaseOfEmployeesDataSetGroups
+            // 
+            this.databaseOfEmployeesDataSetGroups.DataSetName = "DatabaseOfEmployeesDataSetGroups";
+            this.databaseOfEmployeesDataSetGroups.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // groupsBindingSource
+            // 
+            this.groupsBindingSource.DataMember = "Groups";
+            this.groupsBindingSource.DataSource = this.databaseOfEmployeesDataSetGroups;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -400,6 +434,16 @@
             this.comboBoxWorkerPosition.TabIndex = 13;
             this.comboBoxWorkerPosition.ValueMember = "Position";
             // 
+            // databaseOfEmployeesDataSetPositions
+            // 
+            this.databaseOfEmployeesDataSetPositions.DataSetName = "DatabaseOfEmployeesDataSetPositions";
+            this.databaseOfEmployeesDataSetPositions.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // positionsBindingSource
+            // 
+            this.positionsBindingSource.DataMember = "Positions";
+            this.positionsBindingSource.DataSource = this.databaseOfEmployeesDataSetPositions;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -427,47 +471,129 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "ФИО работника:";
             // 
-            // databaseOfEmployeesDataSetAreas
-            // 
-            this.databaseOfEmployeesDataSetAreas.DataSetName = "DatabaseOfEmployeesDataSetAreas";
-            this.databaseOfEmployeesDataSetAreas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // areasBindingSource
-            // 
-            this.areasBindingSource.DataMember = "Areas";
-            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSetAreas;
-            // 
             // areasTableAdapter
             // 
             this.areasTableAdapter.ClearBeforeFill = true;
-            // 
-            // databaseOfEmployeesDataSetPositions
-            // 
-            this.databaseOfEmployeesDataSetPositions.DataSetName = "DatabaseOfEmployeesDataSetPositions";
-            this.databaseOfEmployeesDataSetPositions.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // positionsBindingSource
-            // 
-            this.positionsBindingSource.DataMember = "Positions";
-            this.positionsBindingSource.DataSource = this.databaseOfEmployeesDataSetPositions;
             // 
             // positionsTableAdapter
             // 
             this.positionsTableAdapter.ClearBeforeFill = true;
             // 
-            // databaseOfEmployeesDataSetGroups
-            // 
-            this.databaseOfEmployeesDataSetGroups.DataSetName = "DatabaseOfEmployeesDataSetGroups";
-            this.databaseOfEmployeesDataSetGroups.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // groupsBindingSource
-            // 
-            this.groupsBindingSource.DataMember = "Groups";
-            this.groupsBindingSource.DataSource = this.databaseOfEmployeesDataSetGroups;
-            // 
             // groupsTableAdapter
             // 
             this.groupsTableAdapter.ClearBeforeFill = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.dateTimePickerWorkabilitySIZ);
+            this.tabPage4.Controls.Add(this.textBoxInventNumbSIZ);
+            this.tabPage4.Controls.Add(this.label7);
+            this.tabPage4.Controls.Add(this.DataGridViewSIZ);
+            this.tabPage4.Controls.Add(this.ButtonDeleteSIZ);
+            this.tabPage4.Controls.Add(this.ButtonChangeSIZ);
+            this.tabPage4.Controls.Add(this.ButtonAddSIZ);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.textBoxNameSIZ);
+            this.tabPage4.Controls.Add(this.label9);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(926, 449);
+            this.tabPage4.TabIndex = 4;
+            this.tabPage4.Text = "СИЗ / Приборы";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(408, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(124, 18);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Инвентарный №:";
+            // 
+            // DataGridViewSIZ
+            // 
+            this.DataGridViewSIZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DataGridViewSIZ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewSIZ.Location = new System.Drawing.Point(159, 94);
+            this.DataGridViewSIZ.Name = "DataGridViewSIZ";
+            this.DataGridViewSIZ.RowTemplate.Height = 24;
+            this.DataGridViewSIZ.Size = new System.Drawing.Size(745, 334);
+            this.DataGridViewSIZ.TabIndex = 29;
+            this.DataGridViewSIZ.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewSIZ_RowHeaderMouseClick);
+            // 
+            // ButtonDeleteSIZ
+            // 
+            this.ButtonDeleteSIZ.Location = new System.Drawing.Point(26, 338);
+            this.ButtonDeleteSIZ.Name = "ButtonDeleteSIZ";
+            this.ButtonDeleteSIZ.Size = new System.Drawing.Size(102, 37);
+            this.ButtonDeleteSIZ.TabIndex = 28;
+            this.ButtonDeleteSIZ.Text = "Удалить";
+            this.ButtonDeleteSIZ.UseVisualStyleBackColor = true;
+            this.ButtonDeleteSIZ.Click += new System.EventHandler(this.ButtonDeleteSIZ_Click);
+            // 
+            // ButtonChangeSIZ
+            // 
+            this.ButtonChangeSIZ.Location = new System.Drawing.Point(26, 228);
+            this.ButtonChangeSIZ.Name = "ButtonChangeSIZ";
+            this.ButtonChangeSIZ.Size = new System.Drawing.Size(102, 37);
+            this.ButtonChangeSIZ.TabIndex = 27;
+            this.ButtonChangeSIZ.Text = "Изменить";
+            this.ButtonChangeSIZ.UseVisualStyleBackColor = true;
+            this.ButtonChangeSIZ.Click += new System.EventHandler(this.ButtonChangeSIZ_Click);
+            // 
+            // ButtonAddSIZ
+            // 
+            this.ButtonAddSIZ.Location = new System.Drawing.Point(26, 124);
+            this.ButtonAddSIZ.Name = "ButtonAddSIZ";
+            this.ButtonAddSIZ.Size = new System.Drawing.Size(102, 37);
+            this.ButtonAddSIZ.TabIndex = 26;
+            this.ButtonAddSIZ.Text = "Добавить";
+            this.ButtonAddSIZ.UseVisualStyleBackColor = true;
+            this.ButtonAddSIZ.Click += new System.EventHandler(this.ButtonAddSIZ_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(634, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 18);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Годность:";
+            // 
+            // textBoxNameSIZ
+            // 
+            this.textBoxNameSIZ.Location = new System.Drawing.Point(26, 54);
+            this.textBoxNameSIZ.Name = "textBoxNameSIZ";
+            this.textBoxNameSIZ.Size = new System.Drawing.Size(354, 22);
+            this.textBoxNameSIZ.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(23, 24);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(221, 18);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Наименование СИЗ / прибора:";
+            // 
+            // textBoxInventNumbSIZ
+            // 
+            this.textBoxInventNumbSIZ.Location = new System.Drawing.Point(411, 54);
+            this.textBoxInventNumbSIZ.Name = "textBoxInventNumbSIZ";
+            this.textBoxInventNumbSIZ.Size = new System.Drawing.Size(199, 22);
+            this.textBoxInventNumbSIZ.TabIndex = 31;
+            // 
+            // dateTimePickerWorkabilitySIZ
+            // 
+            this.dateTimePickerWorkabilitySIZ.Location = new System.Drawing.Point(637, 53);
+            this.dateTimePickerWorkabilitySIZ.Name = "dateTimePickerWorkabilitySIZ";
+            this.dateTimePickerWorkabilitySIZ.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerWorkabilitySIZ.TabIndex = 32;
             // 
             // Form1
             // 
@@ -485,15 +611,18 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetAreas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetGroups)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetPositions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSIZ)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -540,6 +669,17 @@
         private DatabaseOfEmployeesDataSetGroups databaseOfEmployeesDataSetGroups;
         private System.Windows.Forms.BindingSource groupsBindingSource;
         private DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter groupsTableAdapter;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DateTimePicker dateTimePickerWorkabilitySIZ;
+        private System.Windows.Forms.TextBox textBoxInventNumbSIZ;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView DataGridViewSIZ;
+        private System.Windows.Forms.Button ButtonDeleteSIZ;
+        private System.Windows.Forms.Button ButtonChangeSIZ;
+        private System.Windows.Forms.Button ButtonAddSIZ;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxNameSIZ;
+        private System.Windows.Forms.Label label9;
     }
 }
 

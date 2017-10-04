@@ -16,9 +16,11 @@ namespace Employees
         Area area = new Area();
         Position position = new Position();
         Worker worker = new Worker();
+        SIZ siz = new SIZ();
         List<SqlParameter> paramsArea = new List<SqlParameter>();
         List<SqlParameter> paramsPosition = new List<SqlParameter>();
         List<SqlParameter> paramsWorker = new List<SqlParameter>();
+        List<SqlParameter> paramsSIZ = new List<SqlParameter>();
 
         public Form1()
         {
@@ -26,6 +28,7 @@ namespace Employees
             area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
             position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
             worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+            siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             DataGridViewArea.Columns[0].Visible = false;
         }
 
@@ -201,7 +204,7 @@ namespace Employees
                 paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.SelectedValue.ToString()));
                 paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.SelectedValue.ToString()));
                 worker.ChangeRecord(worker.SqlInsertCmd, paramsWorker);
-                MessageBox.Show("Запись добавлена.", "Дабавление нового работника");
+                MessageBox.Show("Запись добавлена.", "Добавление нового работника");
                 worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
                 ClearParamsWorker();
             }
@@ -244,6 +247,77 @@ namespace Employees
             {
                 MessageBox.Show("Выберете запись для удаления");
             }
+        }
+
+        /// <summary>
+        /// SIZ methods.
+        /// </summary>
+        private void ClearParamsSIZ()
+        {
+            ID = 0;
+            textBoxNameSIZ.Text = "";
+            textBoxInventNumbSIZ.Text = "";
+            paramsSIZ.Clear();
+        }
+
+        private void ButtonAddSIZ_Click(object sender, EventArgs e)
+        {
+            if(textBoxNameSIZ.Text != "")
+            {
+                paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
+                siz.ChangeRecord(siz.SqlInsertCmd, paramsSIZ);
+                MessageBox.Show("Запись добавлена.", "Добавление нового СИЗ/прибора");
+                siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+                ClearParamsSIZ();
+            }
+            else
+            {
+                MessageBox.Show("Введите название СИЗ/прибора");
+            }
+        }
+
+        private void ButtonChangeSIZ_Click(object sender, EventArgs e)
+        {
+            if (textBoxNameSIZ.Text != "")
+            {
+                paramsSIZ.Add(new SqlParameter("@id", ID));
+                paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
+                siz.ChangeRecord(siz.SqlUpdateCmd, paramsSIZ);
+                MessageBox.Show("Запись изменена.", "Изменение записи");
+                siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+                ClearParamsSIZ();
+            }
+            else
+            {
+                MessageBox.Show("Введите название СИЗ/прибора");
+            }
+        }
+
+        private void ButtonDeleteSIZ_Click(object sender, EventArgs e)
+        {
+            if (ID != 0)
+            {
+                paramsSIZ.Add(new SqlParameter("@id", ID));
+                siz.ChangeRecord(siz.SqlDeleteCmd, paramsSIZ);
+                MessageBox.Show("Запись удалена", "Удаление записи");
+                siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+            }
+            else
+            {
+                MessageBox.Show("Выберете запись для удаления");
+            }
+        }
+
+        private void DataGridViewSIZ_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewSIZ.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
+            textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
+            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString());
         }
     }
 }

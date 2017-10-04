@@ -12,10 +12,10 @@ namespace Employees
 {
     public class Area : DataOperations
     {
-        private string sqlInsertCmd = "INSERT INTO Areas (Area) VALUES (@area)";
-        private string sqlDisplayCmd = "SELECT a.IdArea, a.Area 'Участок' FROM Areas AS a";
-        private string sqlUpdateCmd = "UPDATE Areas SET Area=@area WHERE IdArea=@id";
-        private string sqlDeleteCmd = "DELETE Areas WHERE IdArea=@id";
+        private string sqlInsertCmd = "INSERT INTO Areas (Area) VALUES (@area);";
+        private string sqlDisplayCmd = "SELECT a.IdArea, a.Area 'Участок' FROM Areas AS a;";
+        private string sqlUpdateCmd = "UPDATE Areas SET Area = @area WHERE IdArea = @id;";
+        private string sqlDeleteCmd = "DELETE Areas WHERE IdArea = @id;";
 
         public string SqlInsertCmd { get => sqlInsertCmd; }
         public string SqlDisplayCmd { get => sqlDisplayCmd; }
