@@ -34,6 +34,10 @@ namespace Employees
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
+            this.sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
+            this.workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
             this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.

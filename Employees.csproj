@@ -61,6 +61,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="DatabaseOfEmployeesDataSetSIZ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseOfEmployeesDataSetSIZ.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseOfEmployeesDataSetWorkers.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseOfEmployeesDataSetWorkers.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataOperations.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -116,6 +126,28 @@
     </None>
     <None Include="DATABASEOFEMPLOYEESDataSetPositions.xss">
       <DependentUpon>DATABASEOFEMPLOYEESDataSetPositions.xsd</DependentUpon>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetSIZ.xsc">
+      <DependentUpon>DatabaseOfEmployeesDataSetSIZ.xsd</DependentUpon>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetSIZ.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatabaseOfEmployeesDataSetSIZ.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetSIZ.xss">
+      <DependentUpon>DatabaseOfEmployeesDataSetSIZ.xsd</DependentUpon>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetWorkers.xsc">
+      <DependentUpon>DatabaseOfEmployeesDataSetWorkers.xsd</DependentUpon>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetWorkers.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatabaseOfEmployeesDataSetWorkers.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DatabaseOfEmployeesDataSetWorkers.xss">
+      <DependentUpon>DatabaseOfEmployeesDataSetWorkers.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
