@@ -17,10 +17,12 @@ namespace Employees
         Position position = new Position();
         Worker worker = new Worker();
         SIZ siz = new SIZ();
+        Issue issue = new Issue();
         List<SqlParameter> paramsArea = new List<SqlParameter>();
         List<SqlParameter> paramsPosition = new List<SqlParameter>();
         List<SqlParameter> paramsWorker = new List<SqlParameter>();
         List<SqlParameter> paramsSIZ = new List<SqlParameter>();
+        List<SqlParameter> paramsIssue = new List<SqlParameter>();
 
         public Form1()
         {
@@ -29,22 +31,8 @@ namespace Employees
             position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
             worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
             siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+            issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
             DataGridViewArea.Columns[0].Visible = false;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
-            this.sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
-            this.workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
-            this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
-            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
-            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
-
         }
 
         /// <summary>
@@ -127,7 +115,7 @@ namespace Employees
             if (textBoxNamePosition.Text != "")
             {
                 paramsPosition.Add(new SqlParameter("@position", textBoxNamePosition.Text));
-                paramsPosition.Add(new SqlParameter("@area", comboBoxNameArea.SelectedValue.ToString()));
+                paramsPosition.Add(new SqlParameter("@area", comboBoxNameArea.Text));
                 position.ChangeRecord(position.SqlInsertCmd, paramsPosition);
                 MessageBox.Show("Запись добавлена.");
                 position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
@@ -143,7 +131,7 @@ namespace Employees
         {
             ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxNamePosition.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxNameArea.SelectedValue = DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBoxNameArea.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value.ToString();
         }
 
         private void ButtonChangePosition_Click(object sender, EventArgs e)
@@ -152,7 +140,7 @@ namespace Employees
             {
                 paramsPosition.Add(new SqlParameter("@id", ID));
                 paramsPosition.Add(new SqlParameter("@position", textBoxNamePosition.Text));
-                paramsPosition.Add(new SqlParameter("@area", comboBoxNameArea.SelectedValue.ToString()));
+                paramsPosition.Add(new SqlParameter("@area", comboBoxNameArea.Text));
                 position.ChangeRecord(position.SqlUpdateCmd, paramsPosition);
                 MessageBox.Show("Запись изменена.");
                 position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
@@ -194,9 +182,9 @@ namespace Employees
         {
             ID = Convert.ToInt32(DataGridViewWorkers.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxNameWorker.Text = DataGridViewWorkers.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxWorkerArea.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[2].Value.ToString();
-            comboBoxWorkerPosition.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[3].Value.ToString();
-            comboBoxWorkerGroup.SelectedValue = DataGridViewWorkers.Rows[e.RowIndex].Cells[4].Value.ToString();
+            comboBoxWorkerArea.Text = DataGridViewWorkers.Rows[e.RowIndex].Cells[2].Value.ToString();
+            comboBoxWorkerPosition.Text = DataGridViewWorkers.Rows[e.RowIndex].Cells[3].Value.ToString();
+            comboBoxWorkerGroup.Text = DataGridViewWorkers.Rows[e.RowIndex].Cells[4].Value.ToString();
         }
 
         private void ButtonAddWorker_Click(object sender, EventArgs e)
@@ -204,9 +192,9 @@ namespace Employees
             if (textBoxNameWorker.Text != "")
             {
                 paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
-                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.SelectedValue.ToString()));
-                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.SelectedValue.ToString()));
-                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
+                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
+                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
                 worker.ChangeRecord(worker.SqlInsertCmd, paramsWorker);
                 MessageBox.Show("Запись добавлена.", "Добавление нового работника");
                 worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
@@ -224,9 +212,9 @@ namespace Employees
             {
                 paramsWorker.Add(new SqlParameter("@id", ID));
                 paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
-                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.SelectedValue.ToString()));
-                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.SelectedValue.ToString()));
-                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.SelectedValue.ToString()));
+                paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
+                paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
+                paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
                 worker.ChangeRecord(worker.SqlUpdateCmd, paramsWorker);
                 MessageBox.Show("Запись изменена.", "Изменение записи");
                 worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
@@ -307,12 +295,12 @@ namespace Employees
             {
                 paramsSIZ.Add(new SqlParameter("@id", ID));
                 siz.ChangeRecord(siz.SqlDeleteCmd, paramsSIZ);
-                MessageBox.Show("Запись удалена", "Удаление записи");
+                MessageBox.Show("Запись удалена.", "Удаление записи");
                 siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             }
             else
             {
-                MessageBox.Show("Выберете запись для удаления");
+                MessageBox.Show("Выберете запись для удаления.");
             }
         }
 
@@ -322,6 +310,87 @@ namespace Employees
             textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
             dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString());
+        }
+
+        /// <summary>
+        /// Issue methods.
+        /// </summary>
+        private void ClearParamsIssue()
+        {
+            ID = 0;
+            textBoxNotationOfIssue.Text = "";
+            paramsIssue.Clear();
+        }
+
+        private void DataGridViewIssue_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
+            comboBoxIssueWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
+            dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString());
+            textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString();
+        }
+
+        private void ButtonAddIssue_Click(object sender, EventArgs e)
+        {
+            paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueWorker.Text));
+            paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+            paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
+            paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+            issue.ChangeRecord(issue.SqlInsertCmd, paramsIssue);
+            MessageBox.Show("Запись добавлена.", "Добавление записи");
+            issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+            ClearParamsIssue();
+        }
+
+        private void ButtonChangeIssue_Click(object sender, EventArgs e)
+        {
+            if (ID != 0)
+            {
+                paramsIssue.Add(new SqlParameter("@id", ID));
+                paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueWorker.Text));
+                paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+                paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
+                paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+                issue.ChangeRecord(issue.SqlUpdateCmd, paramsIssue);
+                MessageBox.Show("Запись изменена.", "Изменение записи");
+                issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+                ClearParamsIssue();
+            }
+            else
+            {
+                MessageBox.Show("Выберете запись для изменения.");
+            }
+        }
+
+        private void ButtonDeleteIssue_Click(object sender, EventArgs e)
+        {
+            if (ID != 0)
+            {
+                paramsIssue.Add(new SqlParameter("@id", ID));
+                issue.ChangeRecord(issue.SqlDeleteCmd, paramsIssue);
+                MessageBox.Show("Запись удалена.", "Удаление записи");
+                issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+            }
+            else
+            {
+                MessageBox.Show("Выберете запись для удаления.");
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
+            sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
+            workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
+            groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
+            positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
+            areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
+
         }
     }
 }
