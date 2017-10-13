@@ -11,27 +11,46 @@ namespace Employees
 {
     public class DataOperations
     {
-        SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;User Instance = False;AttachDbFilename='C:\\USERS\\NIKSA\\DOCUMENTS\\VISUAL STUDIO 2017\\PROJECTS\\EMPLOYEES\\EMPLOYEES\\BIN\\DEBUG\\DATABASEOFEMPLOYEES.MDF';Integrated Security = True;Connect Timeout = 30");
-        SqlCommand cmd;
-        SqlDataAdapter adapt;
 
         public void DisplayData(string sqlcmd, DataGridView DataGridView)
         {
-            con.Open();
-            DataTable dt = new DataTable();
-            adapt = new SqlDataAdapter(sqlcmd, con);
-            adapt.Fill(dt);
-            DataGridView.DataSource = dt;
-            con.Close();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        DataTable dt = new DataTable();
+                        adapt.Fill(dt);
+                        DataGridView.DataSource = dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void ChangeRecord(string sqlcmd, List<SqlParameter> prm)
         {
-            cmd = new SqlCommand(sqlcmd, con);
-            con.Open();
-            cmd.Parameters.AddRange(prm.ToArray<SqlParameter>());
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sqlcmd, conn))
+                    {
+                        conn.Open();
+                        cmd.Parameters.AddRange(prm.ToArray<SqlParameter>());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

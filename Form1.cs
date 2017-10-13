@@ -23,16 +23,33 @@ namespace Employees
         List<SqlParameter> paramsWorker = new List<SqlParameter>();
         List<SqlParameter> paramsSIZ = new List<SqlParameter>();
         List<SqlParameter> paramsIssue = new List<SqlParameter>();
+        DataTable dt = new DataTable();
+
 
         public Form1()
         {
             InitializeComponent();
+            DataGridViewFilter_LoadData();
             area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
             position.DisplayData(position.SqlDisplayCmd, DataGridViewPositions);
             worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
             siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
             DataGridViewArea.Columns[0].Visible = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
+            sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
+            workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
+            groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
+            positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
+            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
+            areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
         }
 
         /// <summary>
@@ -110,6 +127,13 @@ namespace Employees
             paramsPosition.Clear();
         }
 
+        private void DataGridViewPositions_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNamePosition.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[1].Value.ToString();
+            comboBoxNameArea.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value.ToString();
+        }
+
         private void ButtonAddPosition_Click(object sender, EventArgs e)
         {
             if (textBoxNamePosition.Text != "")
@@ -126,14 +150,7 @@ namespace Employees
                 MessageBox.Show("Введите название должности.");
             }
         }
-
-        private void DataGridViewPositions_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            ID = Convert.ToInt32(DataGridViewPositions.Rows[e.RowIndex].Cells[0].Value.ToString());
-            textBoxNamePosition.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxNameArea.Text = DataGridViewPositions.Rows[e.RowIndex].Cells[2].Value.ToString();
-        }
-
+        
         private void ButtonChangePosition_Click(object sender, EventArgs e)
         {
             if (textBoxNamePosition.Text != "")
@@ -234,6 +251,7 @@ namespace Employees
                 worker.ChangeRecord(worker.SqlDeleteCmd, paramsWorker);
                 MessageBox.Show("Запись удалена", "Удаление записи");
                 worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+                ClearParamsWorker();
             }
             else
             {
@@ -250,6 +268,14 @@ namespace Employees
             textBoxNameSIZ.Text = "";
             textBoxInventNumbSIZ.Text = "";
             paramsSIZ.Clear();
+        }
+
+        private void DataGridViewSIZ_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ID = Convert.ToInt32(DataGridViewSIZ.Rows[e.RowIndex].Cells[0].Value.ToString());
+            textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
+            textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
+            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString());
         }
 
         private void ButtonAddSIZ_Click(object sender, EventArgs e)
@@ -297,19 +323,12 @@ namespace Employees
                 siz.ChangeRecord(siz.SqlDeleteCmd, paramsSIZ);
                 MessageBox.Show("Запись удалена.", "Удаление записи");
                 siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+                ClearParamsSIZ();
             }
             else
             {
                 MessageBox.Show("Выберете запись для удаления.");
             }
-        }
-
-        private void DataGridViewSIZ_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            ID = Convert.ToInt32(DataGridViewSIZ.Rows[e.RowIndex].Cells[0].Value.ToString());
-            textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
-            textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
-            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString());
         }
 
         /// <summary>
@@ -371,6 +390,7 @@ namespace Employees
                 issue.ChangeRecord(issue.SqlDeleteCmd, paramsIssue);
                 MessageBox.Show("Запись удалена.", "Удаление записи");
                 issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+                ClearParamsIssue();
             }
             else
             {
@@ -378,19 +398,43 @@ namespace Employees
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Filter
+        /// </summary>
+        /// 
+        private void DataGridViewFilter_LoadData()
         {
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
-            sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
-            workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
-            groupsTableAdapter.Fill(this.databaseOfEmployeesDataSetGroups.Groups);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetPositions.Positions' table. You can move, or remove it, as needed.
-            positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
-            areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
+            try
+            {
+                SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString);
+                conn.Open();
+                string sqlcmd = "SELECT w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', " +
+                                "s.NameSIZ 'СИЗ / Прибор', i.DateOfIssueSIZ 'Дата выдачи', s.WorkabilitySIZ 'Годность', i.Notation 'Примечание' " +
+                                "FROM Areas AS a, Issue AS i, Workers AS w, SIZ AS s, Positions AS p " +
+                                "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker;";
+                SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn);
+                adapt.Fill(dt);
+                DataGridViewFilter.DataSource = dt;
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
+        }
+
+        private void ComboBoxAreaFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = string.Format("Участок LIKE '%{0}%'", comboBoxAreaFilter.Text);
+            DataGridViewFilter.DataSource = dv;
+        }
+
+        private void ButtonResetFilter_Click(object sender, EventArgs e)
+        {
+            dt.Clear();
+            DataGridViewFilter_LoadData();
         }
     }
 }
