@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.ButtonResetFilter = new System.Windows.Forms.Button();
             this.comboBoxAreaFilter = new System.Windows.Forms.ComboBox();
             this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSetAreas = new Employees.DatabaseOfEmployeesDataSetAreas();
@@ -79,7 +80,7 @@
             this.textBoxNameWorker = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxTypeOfSIZ = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.dateTimePickerWorkabilitySIZ = new System.Windows.Forms.DateTimePicker();
             this.textBoxInventNumbSIZ = new System.Windows.Forms.TextBox();
@@ -92,13 +93,13 @@
             this.textBoxNameSIZ = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.sIZBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSetSIZ = new Employees.DatabaseOfEmployeesDataSetSIZ();
+            this.comboBoxTypeOfSIZ = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerIssueWorkability = new System.Windows.Forms.DateTimePicker();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxIssueSIZ = new System.Windows.Forms.ComboBox();
+            this.sIZBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSetSIZ = new Employees.DatabaseOfEmployeesDataSetSIZ();
             this.comboBoxIssueWorker = new System.Windows.Forms.ComboBox();
             this.workersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSetWorkers = new Employees.DatabaseOfEmployeesDataSetWorkers();
@@ -117,7 +118,6 @@
             this.groupsTableAdapter = new Employees.DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter();
             this.workersTableAdapter = new Employees.DatabaseOfEmployeesDataSetWorkersTableAdapters.WorkersTableAdapter();
             this.sIZTableAdapter = new Employees.DatabaseOfEmployeesDataSetSIZTableAdapters.SIZTableAdapter();
-            this.ButtonResetFilter = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
@@ -180,6 +180,16 @@
             this.tabPageFilter.TabIndex = 0;
             this.tabPageFilter.Text = "Фильтр";
             this.tabPageFilter.UseVisualStyleBackColor = true;
+            // 
+            // ButtonResetFilter
+            // 
+            this.ButtonResetFilter.Location = new System.Drawing.Point(709, 61);
+            this.ButtonResetFilter.Name = "ButtonResetFilter";
+            this.ButtonResetFilter.Size = new System.Drawing.Size(189, 37);
+            this.ButtonResetFilter.TabIndex = 60;
+            this.ButtonResetFilter.Text = "Сбросить фильтр";
+            this.ButtonResetFilter.UseVisualStyleBackColor = true;
+            this.ButtonResetFilter.Click += new System.EventHandler(this.ButtonResetFilter_Click);
             // 
             // comboBoxAreaFilter
             // 
@@ -330,6 +340,7 @@
             this.DataGridViewArea.Size = new System.Drawing.Size(379, 580);
             this.DataGridViewArea.TabIndex = 5;
             this.DataGridViewArea.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewArea_RowHeaderMouseClick);
+            this.DataGridViewArea.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewArea_RowsAdded);
             // 
             // ButtonDeleteArea
             // 
@@ -410,6 +421,7 @@
             this.DataGridViewPositions.Size = new System.Drawing.Size(831, 577);
             this.DataGridViewPositions.TabIndex = 9;
             this.DataGridViewPositions.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewPositions_RowHeaderMouseClick);
+            this.DataGridViewPositions.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewPositions_RowsAdded);
             // 
             // ButtonDeletePosition
             // 
@@ -567,6 +579,7 @@
             this.DataGridViewWorkers.Size = new System.Drawing.Size(1049, 540);
             this.DataGridViewWorkers.TabIndex = 17;
             this.DataGridViewWorkers.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewWorkers_RowHeaderMouseClick);
+            this.DataGridViewWorkers.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewWorkers_RowsAdded);
             // 
             // ButtonDeleteWorker
             // 
@@ -649,7 +662,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.textBox1);
+            this.tabPage4.Controls.Add(this.textBoxTypeOfSIZ);
             this.tabPage4.Controls.Add(this.label20);
             this.tabPage4.Controls.Add(this.dateTimePickerWorkabilitySIZ);
             this.tabPage4.Controls.Add(this.textBoxInventNumbSIZ);
@@ -669,12 +682,12 @@
             this.tabPage4.Text = "СИЗ / Приборы";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxTypeOfSIZ
             // 
-            this.textBox1.Location = new System.Drawing.Point(771, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 22);
-            this.textBox1.TabIndex = 34;
+            this.textBoxTypeOfSIZ.Location = new System.Drawing.Point(771, 54);
+            this.textBoxTypeOfSIZ.Name = "textBoxTypeOfSIZ";
+            this.textBoxTypeOfSIZ.Size = new System.Drawing.Size(199, 22);
+            this.textBoxTypeOfSIZ.TabIndex = 34;
             // 
             // label20
             // 
@@ -721,6 +734,7 @@
             this.DataGridViewSIZ.Size = new System.Drawing.Size(1043, 532);
             this.DataGridViewSIZ.TabIndex = 29;
             this.DataGridViewSIZ.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewSIZ_RowHeaderMouseClick);
+            this.DataGridViewSIZ.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DataGridViewSIZ_RowsAdded);
             // 
             // ButtonDeleteSIZ
             // 
@@ -782,9 +796,9 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.comboBox1);
+            this.tabPage5.Controls.Add(this.comboBoxTypeOfSIZ);
             this.tabPage5.Controls.Add(this.label21);
-            this.tabPage5.Controls.Add(this.dateTimePicker1);
+            this.tabPage5.Controls.Add(this.dateTimePickerIssueWorkability);
             this.tabPage5.Controls.Add(this.label19);
             this.tabPage5.Controls.Add(this.comboBoxIssueSIZ);
             this.tabPage5.Controls.Add(this.comboBoxIssueWorker);
@@ -806,27 +820,17 @@
             this.tabPage5.Text = "Выдача СИЗ/приборов";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // comboBoxTypeOfSIZ
             // 
-            this.comboBox1.DataSource = this.sIZBindingSource;
-            this.comboBox1.DisplayMember = "NameSIZ";
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(881, 48);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(327, 24);
-            this.comboBox1.TabIndex = 50;
-            this.comboBox1.ValueMember = "IdSIZ";
-            // 
-            // sIZBindingSource
-            // 
-            this.sIZBindingSource.DataMember = "SIZ";
-            this.sIZBindingSource.DataSource = this.databaseOfEmployeesDataSetSIZ;
-            // 
-            // databaseOfEmployeesDataSetSIZ
-            // 
-            this.databaseOfEmployeesDataSetSIZ.DataSetName = "DatabaseOfEmployeesDataSetSIZ";
-            this.databaseOfEmployeesDataSetSIZ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.comboBoxTypeOfSIZ.DataSource = this.sIZBindingSource;
+            this.comboBoxTypeOfSIZ.DisplayMember = "TypeOfSIZ";
+            this.comboBoxTypeOfSIZ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTypeOfSIZ.FormattingEnabled = true;
+            this.comboBoxTypeOfSIZ.Location = new System.Drawing.Point(881, 48);
+            this.comboBoxTypeOfSIZ.Name = "comboBoxTypeOfSIZ";
+            this.comboBoxTypeOfSIZ.Size = new System.Drawing.Size(327, 24);
+            this.comboBoxTypeOfSIZ.TabIndex = 50;
+            this.comboBoxTypeOfSIZ.ValueMember = "IdSIZ";
             // 
             // label21
             // 
@@ -838,12 +842,12 @@
             this.label21.TabIndex = 49;
             this.label21.Text = "Тип:";
             // 
-            // dateTimePicker1
+            // dateTimePickerIssueWorkability
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(1008, 115);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 48;
+            this.dateTimePickerIssueWorkability.Location = new System.Drawing.Point(1008, 115);
+            this.dateTimePickerIssueWorkability.Name = "dateTimePickerIssueWorkability";
+            this.dateTimePickerIssueWorkability.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerIssueWorkability.TabIndex = 48;
             // 
             // label19
             // 
@@ -866,6 +870,16 @@
             this.comboBoxIssueSIZ.Size = new System.Drawing.Size(427, 24);
             this.comboBoxIssueSIZ.TabIndex = 46;
             this.comboBoxIssueSIZ.ValueMember = "IdSIZ";
+            // 
+            // sIZBindingSource
+            // 
+            this.sIZBindingSource.DataMember = "SIZ";
+            this.sIZBindingSource.DataSource = this.databaseOfEmployeesDataSetSIZ;
+            // 
+            // databaseOfEmployeesDataSetSIZ
+            // 
+            this.databaseOfEmployeesDataSetSIZ.DataSetName = "DatabaseOfEmployeesDataSetSIZ";
+            this.databaseOfEmployeesDataSetSIZ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBoxIssueWorker
             // 
@@ -1006,16 +1020,6 @@
             // 
             this.sIZTableAdapter.ClearBeforeFill = true;
             // 
-            // ButtonResetFilter
-            // 
-            this.ButtonResetFilter.Location = new System.Drawing.Point(709, 61);
-            this.ButtonResetFilter.Name = "ButtonResetFilter";
-            this.ButtonResetFilter.Size = new System.Drawing.Size(189, 37);
-            this.ButtonResetFilter.TabIndex = 60;
-            this.ButtonResetFilter.Text = "Сбросить фильтр";
-            this.ButtonResetFilter.UseVisualStyleBackColor = true;
-            this.ButtonResetFilter.Click += new System.EventHandler(this.ButtonResetFilter_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1023,7 +1027,7 @@
             this.ClientSize = new System.Drawing.Size(1256, 699);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "База СИЗ/Приборов";
+            this.Text = "База выдачи СИЗ/Приборов";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPageFilter.ResumeLayout(false);
@@ -1141,11 +1145,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerIssueWorkability;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxTypeOfSIZ;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxTypeOfSIZ;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox comboBoxAreaFilter;
         private System.Windows.Forms.Button ButtonResetFilter;

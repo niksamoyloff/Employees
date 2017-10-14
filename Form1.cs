@@ -35,13 +35,13 @@ namespace Employees
             worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
             siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
-            DataGridViewArea.Columns[0].Visible = false;
+            HideColumns();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetSIZ.SIZ' table. You can move, or remove it, as needed.
-            sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);
+            sIZTableAdapter.Fill(this.databaseOfEmployeesDataSetSIZ.SIZ);            
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetWorkers.Workers' table. You can move, or remove it, as needed.
             workersTableAdapter.Fill(this.databaseOfEmployeesDataSetWorkers.Workers);
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetGroups.Groups' table. You can move, or remove it, as needed.
@@ -50,6 +50,16 @@ namespace Employees
             positionsTableAdapter.Fill(this.databaseOfEmployeesDataSetPositions.Positions);
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSetAreas.Areas' table. You can move, or remove it, as needed.
             areasTableAdapter.Fill(this.databaseOfEmployeesDataSetAreas.Areas);
+            
+        }
+
+        private void HideColumns()
+        {
+            DataGridViewArea.Columns[0].Visible = false;
+            DataGridViewPositions.Columns[0].Visible = false;
+            DataGridViewWorkers.Columns[0].Visible = false;
+            DataGridViewSIZ.Columns[0].Visible = false;
+            DataGridViewIssue.Columns[0].Visible = false;
         }
 
         /// <summary>
@@ -275,7 +285,8 @@ namespace Employees
             ID = Convert.ToInt32(DataGridViewSIZ.Rows[e.RowIndex].Cells[0].Value.ToString());
             textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
-            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString());
+            textBoxTypeOfSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString();
+            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[4].Value.ToString());
         }
 
         private void ButtonAddSIZ_Click(object sender, EventArgs e)
@@ -284,11 +295,13 @@ namespace Employees
             {
                 paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
                 siz.ChangeRecord(siz.SqlInsertCmd, paramsSIZ);
                 MessageBox.Show("Запись добавлена.", "Добавление нового СИЗ/прибора");
                 siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
                 ClearParamsSIZ();
+
             }
             else
             {
@@ -303,6 +316,7 @@ namespace Employees
                 paramsSIZ.Add(new SqlParameter("@id", ID));
                 paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
                 siz.ChangeRecord(siz.SqlUpdateCmd, paramsSIZ);
                 MessageBox.Show("Запись изменена.", "Изменение записи");
@@ -346,8 +360,10 @@ namespace Employees
             ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
             comboBoxIssueWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
             comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
-            dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString());
-            textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString();
+            comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
+            dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
+            dateTimePickerIssueWorkability.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[5].Value.ToString());
+            textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[6].Value.ToString();
         }
 
         private void ButtonAddIssue_Click(object sender, EventArgs e)
@@ -399,6 +415,30 @@ namespace Employees
         }
 
         /// <summary>
+        /// After adding a rows in DataGridView's refill DataSets of types. 
+        /// </summary>
+        /// 
+        private void DataGridViewArea_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            areasTableAdapter.Fill(databaseOfEmployeesDataSetAreas.Areas);
+        }
+
+        private void DataGridViewPositions_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            positionsTableAdapter.Fill(databaseOfEmployeesDataSetPositions.Positions);
+        }
+
+        private void DataGridViewWorkers_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            workersTableAdapter.Fill(databaseOfEmployeesDataSetWorkers.Workers);
+        }
+
+        private void DataGridViewSIZ_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            sIZTableAdapter.Fill(databaseOfEmployeesDataSetSIZ.SIZ);
+        }
+
+        /// <summary>
         /// Filter
         /// </summary>
         /// 
@@ -436,5 +476,6 @@ namespace Employees
             dt.Clear();
             DataGridViewFilter_LoadData();
         }
+
     }
 }

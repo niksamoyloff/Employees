@@ -8,7 +8,7 @@ namespace Employees
 {
     class Worker : DataOperations
     {
-        private string sqlDisplayCmd = "SELECT w.IdWorker, w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', g.GroupOfES 'Группа ЭБ' " +
+        private string sqlDisplayCmd = "SELECT IdWorker, w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', g.GroupOfES 'Группа ЭБ' " +
             "FROM Workers AS w, Areas AS a, Positions AS p, Groups AS g " +
             "WHERE w.AreaWorker = a.IdArea AND w.PositionWorker = p.IdPosition AND w.GroupWorker = g.IdGroupOfES;";
 

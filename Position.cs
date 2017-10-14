@@ -8,7 +8,7 @@ namespace Employees
 {
     class Position : DataOperations
     {
-        private string sqlDisplayCmd = "SELECT p.IdPosition, p.Position 'Должность', a.Area 'Участок' " +
+        private string sqlDisplayCmd = "SELECT IdPosition, p.Position 'Должность', a.Area 'Участок' " +
             "FROM Positions AS p, Areas AS a " +
             "WHERE p.Area=a.IdArea;";
         private string sqlInsertCmd = "INSERT INTO Positions (Position, Area) " +

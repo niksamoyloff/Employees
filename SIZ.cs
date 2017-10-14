@@ -8,13 +8,12 @@ namespace Employees
 {
     class SIZ : DataOperations
     {
-        private string sqlDispayCmd = "SELECT * FROM SIZ";
-            //"SELECT IdSIZ, NameSIZ, InventoryNumberSIZ, FORMAT(WorkabilitySIZ, 'd', 'de-de') AS WorkabilitySIZ FROM SIZ;";
+        private string sqlDispayCmd = "SELECT IdSIZ, NameSIZ 'Наименование СИЗ/прибора', InventoryNumberSIZ 'Инвентарный номер', TypeOfSIZ 'Тип', WorkabilitySIZ 'Годность' FROM SIZ;";
 
-        private string sqlInsertCmd = "INSERT INTO SIZ (NameSIZ, InventoryNumberSIZ, WorkabilitySIZ) " +
-            "VALUES (@nameSIZ, @invNumbSIZ, CONVERT(date, @workSIZ, 104));";
+        private string sqlInsertCmd = "INSERT INTO SIZ (NameSIZ, InventoryNumberSIZ, TypeOfSIZ, WorkabilitySIZ) " +
+            "VALUES (@nameSIZ, @invNumbSIZ, @typeOfSIZ, CONVERT(date, @workSIZ, 104));";
 
-        private string sqlUpdateCmd = "UPDATE SIZ SET NameSIZ = @nameSIZ, InventoryNumberSIZ = @invNumbSIZ, " +
+        private string sqlUpdateCmd = "UPDATE SIZ SET NameSIZ = @nameSIZ, InventoryNumberSIZ = @invNumbSIZ, TypeOfSIZ = @typeOfSIZ, " +
             "WorkabilitySIZ = CONVERT(date, @workSIZ, 104) WHERE IdSIZ = @id;";
 
         private string sqlDeleteCmd = "DELETE SIZ WHERE IdSIZ = @id;";
