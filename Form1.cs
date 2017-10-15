@@ -456,6 +456,16 @@ namespace Employees
                 adapt.Fill(dt);
                 DataGridViewFilter.DataSource = dt;
                 conn.Close();
+
+                var sourceNames = new AutoCompleteStringCollection();
+                var sourceSIZ = new AutoCompleteStringCollection();
+                foreach (DataGridViewRow row in DataGridViewFilter.Rows)
+                {
+                    sourceNames.Add(Convert.ToString(row.Cells[0].Value));
+                    sourceSIZ.Add(Convert.ToString(row.Cells[3].Value));
+                }
+                textBoxNameWorkerFilter.AutoCompleteCustomSource = sourceNames;
+                textBoxNameSIZFilter.AutoCompleteCustomSource = sourceSIZ;
             }
             catch (Exception ex)
             {
@@ -477,5 +487,25 @@ namespace Employees
             DataGridViewFilter_LoadData();
         }
 
+        private void TextBoxNameWorkerFilter_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = string.Format("[ФИО работника] LIKE '%{0}%'", textBoxNameWorkerFilter.Text);
+            DataGridViewFilter.DataSource = dv;
+        }
+
+        private void TextBoxNameSIZFilter_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = string.Format("[СИЗ / Прибор] LIKE '%{0}%'", textBoxNameSIZFilter.Text);
+            DataGridViewFilter.DataSource = dv;
+        }
+
+        private void ButtonShowDateFilter_Click(object sender, EventArgs e)
+        {
+            DataView dv = new DataView(dt);
+            dv.RowFilter = string.Format("[Дата выдачи] >= '{0}' AND [Дата выдачи] <= '{1}'", dateTimePickerFilterStart.Value.ToShortDateString(), dateTimePickerFilterEnd.Value.ToShortDateString());
+            DataGridViewFilter.DataSource = dv;
+        }
     }
 }

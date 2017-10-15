@@ -31,16 +31,17 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.ButtonShowDateFilter = new System.Windows.Forms.Button();
             this.ButtonResetFilter = new System.Windows.Forms.Button();
             this.comboBoxAreaFilter = new System.Windows.Forms.ComboBox();
             this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSetAreas = new Employees.DatabaseOfEmployeesDataSetAreas();
             this.button1 = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFilterEnd = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBoxNameSIZfilter = new System.Windows.Forms.TextBox();
-            this.dateTimePickerFilter = new System.Windows.Forms.DateTimePicker();
+            this.textBoxNameSIZFilter = new System.Windows.Forms.TextBox();
+            this.dateTimePickerFilterStart = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -94,12 +95,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.comboBoxTypeOfSIZ = new System.Windows.Forms.ComboBox();
+            this.sIZBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSetSIZ = new Employees.DatabaseOfEmployeesDataSetSIZ();
             this.label21 = new System.Windows.Forms.Label();
             this.dateTimePickerIssueWorkability = new System.Windows.Forms.DateTimePicker();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxIssueSIZ = new System.Windows.Forms.ComboBox();
-            this.sIZBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSetSIZ = new Employees.DatabaseOfEmployeesDataSetSIZ();
             this.comboBoxIssueWorker = new System.Windows.Forms.ComboBox();
             this.workersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSetWorkers = new Employees.DatabaseOfEmployeesDataSetWorkers();
@@ -159,14 +160,15 @@
             // 
             // tabPageFilter
             // 
+            this.tabPageFilter.Controls.Add(this.ButtonShowDateFilter);
             this.tabPageFilter.Controls.Add(this.ButtonResetFilter);
             this.tabPageFilter.Controls.Add(this.comboBoxAreaFilter);
             this.tabPageFilter.Controls.Add(this.button1);
-            this.tabPageFilter.Controls.Add(this.dateTimePicker2);
+            this.tabPageFilter.Controls.Add(this.dateTimePickerFilterEnd);
             this.tabPageFilter.Controls.Add(this.label17);
             this.tabPageFilter.Controls.Add(this.label18);
-            this.tabPageFilter.Controls.Add(this.textBoxNameSIZfilter);
-            this.tabPageFilter.Controls.Add(this.dateTimePickerFilter);
+            this.tabPageFilter.Controls.Add(this.textBoxNameSIZFilter);
+            this.tabPageFilter.Controls.Add(this.dateTimePickerFilterStart);
             this.tabPageFilter.Controls.Add(this.label14);
             this.tabPageFilter.Controls.Add(this.label15);
             this.tabPageFilter.Controls.Add(this.label16);
@@ -180,6 +182,16 @@
             this.tabPageFilter.TabIndex = 0;
             this.tabPageFilter.Text = "Фильтр";
             this.tabPageFilter.UseVisualStyleBackColor = true;
+            // 
+            // ButtonShowDateFilter
+            // 
+            this.ButtonShowDateFilter.Location = new System.Drawing.Point(20, 61);
+            this.ButtonShowDateFilter.Name = "ButtonShowDateFilter";
+            this.ButtonShowDateFilter.Size = new System.Drawing.Size(82, 35);
+            this.ButtonShowDateFilter.TabIndex = 61;
+            this.ButtonShowDateFilter.Text = "Показать";
+            this.ButtonShowDateFilter.UseVisualStyleBackColor = true;
+            this.ButtonShowDateFilter.Click += new System.EventHandler(this.ButtonShowDateFilter_Click);
             // 
             // ButtonResetFilter
             // 
@@ -223,18 +235,18 @@
             this.button1.Text = "Экспорт в Excel";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // dateTimePicker2
+            // dateTimePickerFilterEnd
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(364, 71);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker2.TabIndex = 57;
+            this.dateTimePickerFilterEnd.Location = new System.Drawing.Point(384, 72);
+            this.dateTimePickerFilterEnd.Name = "dateTimePickerFilterEnd";
+            this.dateTimePickerFilterEnd.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerFilterEnd.TabIndex = 57;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(325, 71);
+            this.label17.Location = new System.Drawing.Point(345, 72);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(29, 18);
             this.label17.TabIndex = 56;
@@ -250,19 +262,22 @@
             this.label18.TabIndex = 55;
             this.label18.Text = "Участок:";
             // 
-            // textBoxNameSIZfilter
+            // textBoxNameSIZFilter
             // 
-            this.textBoxNameSIZfilter.Location = new System.Drawing.Point(536, 27);
-            this.textBoxNameSIZfilter.Name = "textBoxNameSIZfilter";
-            this.textBoxNameSIZfilter.Size = new System.Drawing.Size(375, 22);
-            this.textBoxNameSIZfilter.TabIndex = 51;
+            this.textBoxNameSIZFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxNameSIZFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBoxNameSIZFilter.Location = new System.Drawing.Point(536, 27);
+            this.textBoxNameSIZFilter.Name = "textBoxNameSIZFilter";
+            this.textBoxNameSIZFilter.Size = new System.Drawing.Size(375, 22);
+            this.textBoxNameSIZFilter.TabIndex = 51;
+            this.textBoxNameSIZFilter.TextChanged += new System.EventHandler(this.TextBoxNameSIZFilter_TextChanged);
             // 
-            // dateTimePickerFilter
+            // dateTimePickerFilterStart
             // 
-            this.dateTimePickerFilter.Location = new System.Drawing.Point(114, 71);
-            this.dateTimePickerFilter.Name = "dateTimePickerFilter";
-            this.dateTimePickerFilter.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePickerFilter.TabIndex = 50;
+            this.dateTimePickerFilterStart.Location = new System.Drawing.Point(134, 72);
+            this.dateTimePickerFilterStart.Name = "dateTimePickerFilterStart";
+            this.dateTimePickerFilterStart.Size = new System.Drawing.Size(200, 22);
+            this.dateTimePickerFilterStart.TabIndex = 50;
             // 
             // label14
             // 
@@ -278,11 +293,11 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(17, 70);
+            this.label15.Location = new System.Drawing.Point(108, 72);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(91, 18);
+            this.label15.Size = new System.Drawing.Size(20, 18);
             this.label15.TabIndex = 48;
-            this.label15.Text = "Показать с:";
+            this.label15.Text = "с:";
             // 
             // label16
             // 
@@ -296,10 +311,13 @@
             // 
             // textBoxNameWorkerFilter
             // 
+            this.textBoxNameWorkerFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxNameWorkerFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxNameWorkerFilter.Location = new System.Drawing.Point(102, 27);
             this.textBoxNameWorkerFilter.Name = "textBoxNameWorkerFilter";
             this.textBoxNameWorkerFilter.Size = new System.Drawing.Size(302, 22);
             this.textBoxNameWorkerFilter.TabIndex = 1;
+            this.textBoxNameWorkerFilter.TextChanged += new System.EventHandler(this.TextBoxNameWorkerFilter_TextChanged);
             // 
             // DataGridViewFilter
             // 
@@ -832,6 +850,16 @@
             this.comboBoxTypeOfSIZ.TabIndex = 50;
             this.comboBoxTypeOfSIZ.ValueMember = "IdSIZ";
             // 
+            // sIZBindingSource
+            // 
+            this.sIZBindingSource.DataMember = "SIZ";
+            this.sIZBindingSource.DataSource = this.databaseOfEmployeesDataSetSIZ;
+            // 
+            // databaseOfEmployeesDataSetSIZ
+            // 
+            this.databaseOfEmployeesDataSetSIZ.DataSetName = "DatabaseOfEmployeesDataSetSIZ";
+            this.databaseOfEmployeesDataSetSIZ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -870,16 +898,6 @@
             this.comboBoxIssueSIZ.Size = new System.Drawing.Size(427, 24);
             this.comboBoxIssueSIZ.TabIndex = 46;
             this.comboBoxIssueSIZ.ValueMember = "IdSIZ";
-            // 
-            // sIZBindingSource
-            // 
-            this.sIZBindingSource.DataMember = "SIZ";
-            this.sIZBindingSource.DataSource = this.databaseOfEmployeesDataSetSIZ;
-            // 
-            // databaseOfEmployeesDataSetSIZ
-            // 
-            this.databaseOfEmployeesDataSetSIZ.DataSetName = "DatabaseOfEmployeesDataSetSIZ";
-            this.databaseOfEmployeesDataSetSIZ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // comboBoxIssueWorker
             // 
@@ -1137,13 +1155,13 @@
         private System.Windows.Forms.TextBox textBoxNameWorkerFilter;
         private System.Windows.Forms.DataGridView DataGridViewFilter;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBoxNameSIZfilter;
-        private System.Windows.Forms.DateTimePicker dateTimePickerFilter;
+        private System.Windows.Forms.TextBox textBoxNameSIZFilter;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFilterStart;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFilterEnd;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DateTimePicker dateTimePickerIssueWorkability;
         private System.Windows.Forms.Label label19;
@@ -1153,6 +1171,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox comboBoxAreaFilter;
         private System.Windows.Forms.Button ButtonResetFilter;
+        private System.Windows.Forms.Button ButtonShowDateFilter;
     }
 }
 
