@@ -18,12 +18,13 @@ namespace Employees
         Worker worker = new Worker();
         SIZ siz = new SIZ();
         Issue issue = new Issue();
+        DataTable dt = new DataTable();
         List<SqlParameter> paramsArea = new List<SqlParameter>();
         List<SqlParameter> paramsPosition = new List<SqlParameter>();
         List<SqlParameter> paramsWorker = new List<SqlParameter>();
         List<SqlParameter> paramsSIZ = new List<SqlParameter>();
         List<SqlParameter> paramsIssue = new List<SqlParameter>();
-        DataTable dt = new DataTable();
+        
 
 
         public Form1()
@@ -80,50 +81,77 @@ namespace Employees
 
         private void ButtonAddArea_Click(object sender, EventArgs e)
         {
-            if (textBoxNameArea.Text != "")
+            try
             {
-                paramsArea.Add(new SqlParameter("@area", textBoxNameArea.Text));
-                area.ChangeRecord(area.SqlInsertCmd, paramsArea);
-                MessageBox.Show("Запись добавлена.");
-                area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
-                ClearParamsArea();
+                if (textBoxNameArea.Text != "")
+                {
+                    paramsArea.Add(new SqlParameter("@area", textBoxNameArea.Text));
+                    area.ChangeRecord(area.SqlInsertCmd, paramsArea);
+                    AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
+                    area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
+                    ClearParamsArea();
+                }
+                else
+                {
+                    MessageBox.Show("Введите название участка.", "Добавление записи");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Введите название участка.");
+                MessageBox.Show("Произошла непредвиденная ошибка: " + ex.Message);
             }
+            
         }
 
         private void ButtonChangeArea_Click(object sender, EventArgs e)
         {
-            if (textBoxNameArea.Text != "")
+            try
             {
-                paramsArea.Add(new SqlParameter("@id", ID));
-                paramsArea.Add(new SqlParameter("@area", textBoxNameArea.Text));
-                area.ChangeRecord(area.SqlUpdateCmd, paramsArea);
-                MessageBox.Show("Запись изменена.");
-                area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
-                ClearParamsArea();
+                if (textBoxNameArea.Text != "")
+                {
+                    paramsArea.Add(new SqlParameter("@id", ID));
+                    paramsArea.Add(new SqlParameter("@area", textBoxNameArea.Text));
+                    if (MessageBox.Show("Изенить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        area.ChangeRecord(area.SqlUpdateCmd, paramsArea);
+                        area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
+                        ClearParamsArea();
+                    }                    
+                }
+                else
+                {
+                    MessageBox.Show("Выберите запись для изменения.", "Изменение записи");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите запись для изменения.");
+                MessageBox.Show("Произошла непредвиденная ошибка: " + ex.Message);
             }
+            
         }
 
         private void ButtonDeleteArea_Click(object sender, EventArgs e)
         {
-            if (ID != 0)
+            try
             {
-                paramsArea.Add(new SqlParameter("@id", ID));
-                area.ChangeRecord(area.SqlDeleteCmd, paramsArea);
-                MessageBox.Show("Запись удалена.");
-                area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
-                ClearParamsArea();
+                if (ID != 0)
+                {
+                    paramsArea.Add(new SqlParameter("@id", ID));
+                    if (MessageBox.Show("Удалить запись?", "Удаление записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        area.ChangeRecord(area.SqlDeleteCmd, paramsArea);
+                        area.DisplayData(area.SqlDisplayCmd, DataGridViewArea);
+                        ClearParamsArea();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите запись для удаления.", "Удаление записи");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите запись для удаления.");
+                MessageBox.Show("Произошла непредвиденная ошибка: " + ex.Message);
             }
         }
         
@@ -286,7 +314,6 @@ namespace Employees
             textBoxNameSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[1].Value.ToString();
             textBoxInventNumbSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[2].Value.ToString();
             textBoxTypeOfSIZ.Text = DataGridViewSIZ.Rows[e.RowIndex].Cells[3].Value.ToString();
-            dateTimePickerWorkabilitySIZ.Value = Convert.ToDateTime(DataGridViewSIZ.Rows[e.RowIndex].Cells[4].Value.ToString());
         }
 
         private void ButtonAddSIZ_Click(object sender, EventArgs e)
@@ -296,7 +323,6 @@ namespace Employees
                 paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
-                paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
                 siz.ChangeRecord(siz.SqlInsertCmd, paramsSIZ);
                 MessageBox.Show("Запись добавлена.", "Добавление нового СИЗ/прибора");
                 siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
@@ -317,7 +343,6 @@ namespace Employees
                 paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
                 paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
-                paramsSIZ.Add(new SqlParameter("@workSIZ", dateTimePickerWorkabilitySIZ.Value.ToShortDateString()));
                 siz.ChangeRecord(siz.SqlUpdateCmd, paramsSIZ);
                 MessageBox.Show("Запись изменена.", "Изменение записи");
                 siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
@@ -357,25 +382,42 @@ namespace Employees
 
         private void DataGridViewIssue_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
-            comboBoxIssueWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
-            comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
-            comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
-            dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
-            dateTimePickerIssueWorkability.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[5].Value.ToString());
-            textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[6].Value.ToString();
+            try
+            {
+                ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
+                textBoxNameWorkerIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
+                comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
+                comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
+                dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
+                dateTimePickerIssueWorkability.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[5].Value.ToString());
+                textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[6].Value.ToString();
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void ButtonAddIssue_Click(object sender, EventArgs e)
         {
-            paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueWorker.Text));
-            paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
-            paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
-            paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
-            issue.ChangeRecord(issue.SqlInsertCmd, paramsIssue);
-            MessageBox.Show("Запись добавлена.", "Добавление записи");
-            issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
-            ClearParamsIssue();
+            if (textBoxNameWorkerIssue.Text != "")
+            {
+                paramsIssue.Add(new SqlParameter("@issueWorker", textBoxNameWorkerIssue.Text));
+                paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+                paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
+                paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
+                paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
+                paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+                issue.ChangeRecord(issue.SqlInsertCmd, paramsIssue);
+                MessageBox.Show("Запись добавлена.", "Добавление записи");
+                issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+                ClearParamsIssue();
+                DataGridViewFilter_LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Введите ФИО работника");
+            }
         }
 
         private void ButtonChangeIssue_Click(object sender, EventArgs e)
@@ -383,14 +425,17 @@ namespace Employees
             if (ID != 0)
             {
                 paramsIssue.Add(new SqlParameter("@id", ID));
-                paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueWorker.Text));
+                paramsIssue.Add(new SqlParameter("@issueWorker", textBoxNameWorkerIssue.Text));
                 paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+                paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
                 paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
                 paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+                paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
                 issue.ChangeRecord(issue.SqlUpdateCmd, paramsIssue);
                 MessageBox.Show("Запись изменена.", "Изменение записи");
                 issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
                 ClearParamsIssue();
+                DataGridViewFilter_LoadData();
             }
             else
             {
@@ -407,6 +452,7 @@ namespace Employees
                 MessageBox.Show("Запись удалена.", "Удаление записи");
                 issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
                 ClearParamsIssue();
+                DataGridViewFilter_LoadData();
             }
             else
             {
@@ -444,18 +490,25 @@ namespace Employees
         /// 
         private void DataGridViewFilter_LoadData()
         {
+            dt.Clear();
             try
             {
-                SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString);
-                conn.Open();
-                string sqlcmd = "SELECT w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', " +
-                                "s.NameSIZ 'СИЗ / Прибор', i.DateOfIssueSIZ 'Дата выдачи', s.WorkabilitySIZ 'Годность', i.Notation 'Примечание' " +
-                                "FROM Areas AS a, Issue AS i, Workers AS w, SIZ AS s, Positions AS p " +
-                                "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker;";
-                SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn);
-                adapt.Fill(dt);
-                DataGridViewFilter.DataSource = dt;
-                conn.Close();
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    string sqlcmd = "SELECT w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', " +
+                                    "s.NameSIZ 'СИЗ / Прибор', i.DateOfIssueSIZ 'Дата выдачи', i.WorkabilitySIZ 'Годность', i.Notation 'Примечание' " +
+                                    "FROM Areas AS a, Issue AS i, Workers AS w, SIZ AS s, Positions AS p " +
+                                    "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker;";
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        adapt.Fill(dt);
+                        DataGridViewFilter.DataSource = dt;
+                    }
+                        
+                }
+                    
+                //conn.Close();
 
                 var sourceNames = new AutoCompleteStringCollection();
                 var sourceSIZ = new AutoCompleteStringCollection();
@@ -466,6 +519,7 @@ namespace Employees
                 }
                 textBoxNameWorkerFilter.AutoCompleteCustomSource = sourceNames;
                 textBoxNameSIZFilter.AutoCompleteCustomSource = sourceSIZ;
+                textBoxNameWorkerIssue.AutoCompleteCustomSource = sourceNames;
             }
             catch (Exception ex)
             {
@@ -483,7 +537,6 @@ namespace Employees
 
         private void ButtonResetFilter_Click(object sender, EventArgs e)
         {
-            dt.Clear();
             DataGridViewFilter_LoadData();
         }
 

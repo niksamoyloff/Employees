@@ -83,17 +83,16 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.textBoxTypeOfSIZ = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.dateTimePickerWorkabilitySIZ = new System.Windows.Forms.DateTimePicker();
             this.textBoxInventNumbSIZ = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.DataGridViewSIZ = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteSIZ = new System.Windows.Forms.Button();
             this.ButtonChangeSIZ = new System.Windows.Forms.Button();
             this.ButtonAddSIZ = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.textBoxNameSIZ = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.textBoxNameWorkerIssue = new System.Windows.Forms.TextBox();
             this.comboBoxTypeOfSIZ = new System.Windows.Forms.ComboBox();
             this.sIZBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.databaseOfEmployeesDataSetSIZ = new Employees.DatabaseOfEmployeesDataSetSIZ();
@@ -101,9 +100,6 @@
             this.dateTimePickerIssueWorkability = new System.Windows.Forms.DateTimePicker();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxIssueSIZ = new System.Windows.Forms.ComboBox();
-            this.comboBoxIssueWorker = new System.Windows.Forms.ComboBox();
-            this.workersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSetWorkers = new Employees.DatabaseOfEmployeesDataSetWorkers();
             this.textBoxNotationOfIssue = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePickerIssueSIZ = new System.Windows.Forms.DateTimePicker();
@@ -114,6 +110,8 @@
             this.ButtonAddIssue = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.workersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSetWorkers = new Employees.DatabaseOfEmployeesDataSetWorkers();
             this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetAreasTableAdapters.AreasTableAdapter();
             this.positionsTableAdapter = new Employees.DatabaseOfEmployeesDataSetPositionsTableAdapters.PositionsTableAdapter();
             this.groupsTableAdapter = new Employees.DatabaseOfEmployeesDataSetGroupsTableAdapters.GroupsTableAdapter();
@@ -139,9 +137,9 @@
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sIZBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetSIZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetWorkers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -682,14 +680,12 @@
             // 
             this.tabPage4.Controls.Add(this.textBoxTypeOfSIZ);
             this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.dateTimePickerWorkabilitySIZ);
             this.tabPage4.Controls.Add(this.textBoxInventNumbSIZ);
             this.tabPage4.Controls.Add(this.label7);
             this.tabPage4.Controls.Add(this.DataGridViewSIZ);
             this.tabPage4.Controls.Add(this.ButtonDeleteSIZ);
             this.tabPage4.Controls.Add(this.ButtonChangeSIZ);
             this.tabPage4.Controls.Add(this.ButtonAddSIZ);
-            this.tabPage4.Controls.Add(this.label8);
             this.tabPage4.Controls.Add(this.textBoxNameSIZ);
             this.tabPage4.Controls.Add(this.label9);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
@@ -716,13 +712,6 @@
             this.label20.Size = new System.Drawing.Size(37, 18);
             this.label20.TabIndex = 33;
             this.label20.Text = "Тип:";
-            // 
-            // dateTimePickerWorkabilitySIZ
-            // 
-            this.dateTimePickerWorkabilitySIZ.Location = new System.Drawing.Point(1002, 54);
-            this.dateTimePickerWorkabilitySIZ.Name = "dateTimePickerWorkabilitySIZ";
-            this.dateTimePickerWorkabilitySIZ.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePickerWorkabilitySIZ.TabIndex = 32;
             // 
             // textBoxInventNumbSIZ
             // 
@@ -784,16 +773,6 @@
             this.ButtonAddSIZ.UseVisualStyleBackColor = true;
             this.ButtonAddSIZ.Click += new System.EventHandler(this.ButtonAddSIZ_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(999, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(79, 18);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Годность:";
-            // 
             // textBoxNameSIZ
             // 
             this.textBoxNameSIZ.Location = new System.Drawing.Point(26, 54);
@@ -814,12 +793,12 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.textBoxNameWorkerIssue);
             this.tabPage5.Controls.Add(this.comboBoxTypeOfSIZ);
             this.tabPage5.Controls.Add(this.label21);
             this.tabPage5.Controls.Add(this.dateTimePickerIssueWorkability);
             this.tabPage5.Controls.Add(this.label19);
             this.tabPage5.Controls.Add(this.comboBoxIssueSIZ);
-            this.tabPage5.Controls.Add(this.comboBoxIssueWorker);
             this.tabPage5.Controls.Add(this.textBoxNotationOfIssue);
             this.tabPage5.Controls.Add(this.label13);
             this.tabPage5.Controls.Add(this.dateTimePickerIssueSIZ);
@@ -837,6 +816,15 @@
             this.tabPage5.TabIndex = 5;
             this.tabPage5.Text = "Выдача СИЗ/приборов";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // textBoxNameWorkerIssue
+            // 
+            this.textBoxNameWorkerIssue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxNameWorkerIssue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBoxNameWorkerIssue.Location = new System.Drawing.Point(33, 50);
+            this.textBoxNameWorkerIssue.Name = "textBoxNameWorkerIssue";
+            this.textBoxNameWorkerIssue.Size = new System.Drawing.Size(366, 22);
+            this.textBoxNameWorkerIssue.TabIndex = 51;
             // 
             // comboBoxTypeOfSIZ
             // 
@@ -893,33 +881,11 @@
             this.comboBoxIssueSIZ.DisplayMember = "NameSIZ";
             this.comboBoxIssueSIZ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxIssueSIZ.FormattingEnabled = true;
-            this.comboBoxIssueSIZ.Location = new System.Drawing.Point(435, 48);
+            this.comboBoxIssueSIZ.Location = new System.Drawing.Point(425, 48);
             this.comboBoxIssueSIZ.Name = "comboBoxIssueSIZ";
             this.comboBoxIssueSIZ.Size = new System.Drawing.Size(427, 24);
             this.comboBoxIssueSIZ.TabIndex = 46;
             this.comboBoxIssueSIZ.ValueMember = "IdSIZ";
-            // 
-            // comboBoxIssueWorker
-            // 
-            this.comboBoxIssueWorker.DataSource = this.workersBindingSource;
-            this.comboBoxIssueWorker.DisplayMember = "NameWorker";
-            this.comboBoxIssueWorker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxIssueWorker.FormattingEnabled = true;
-            this.comboBoxIssueWorker.Location = new System.Drawing.Point(33, 48);
-            this.comboBoxIssueWorker.Name = "comboBoxIssueWorker";
-            this.comboBoxIssueWorker.Size = new System.Drawing.Size(363, 24);
-            this.comboBoxIssueWorker.TabIndex = 45;
-            this.comboBoxIssueWorker.ValueMember = "IdWorker";
-            // 
-            // workersBindingSource
-            // 
-            this.workersBindingSource.DataMember = "Workers";
-            this.workersBindingSource.DataSource = this.databaseOfEmployeesDataSetWorkers;
-            // 
-            // databaseOfEmployeesDataSetWorkers
-            // 
-            this.databaseOfEmployeesDataSetWorkers.DataSetName = "DatabaseOfEmployeesDataSetWorkers";
-            this.databaseOfEmployeesDataSetWorkers.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // textBoxNotationOfIssue
             // 
@@ -950,7 +916,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(432, 20);
+            this.label10.Location = new System.Drawing.Point(422, 20);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 18);
             this.label10.TabIndex = 40;
@@ -1018,6 +984,16 @@
             this.label12.TabIndex = 33;
             this.label12.Text = "Работник:";
             // 
+            // workersBindingSource
+            // 
+            this.workersBindingSource.DataMember = "Workers";
+            this.workersBindingSource.DataSource = this.databaseOfEmployeesDataSetWorkers;
+            // 
+            // databaseOfEmployeesDataSetWorkers
+            // 
+            this.databaseOfEmployeesDataSetWorkers.DataSetName = "DatabaseOfEmployeesDataSetWorkers";
+            this.databaseOfEmployeesDataSetWorkers.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // areasTableAdapter
             // 
             this.areasTableAdapter.ClearBeforeFill = true;
@@ -1073,11 +1049,10 @@
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sIZBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetSIZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.workersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetWorkers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -1114,14 +1089,12 @@
         private System.Windows.Forms.ComboBox comboBoxWorkerArea;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DateTimePicker dateTimePickerWorkabilitySIZ;
         private System.Windows.Forms.TextBox textBoxInventNumbSIZ;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView DataGridViewSIZ;
         private System.Windows.Forms.Button ButtonDeleteSIZ;
         private System.Windows.Forms.Button ButtonChangeSIZ;
         private System.Windows.Forms.Button ButtonAddSIZ;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxNameSIZ;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabPage tabPage5;
@@ -1136,7 +1109,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox comboBoxIssueSIZ;
-        private System.Windows.Forms.ComboBox comboBoxIssueWorker;
         private DatabaseOfEmployeesDataSetAreas databaseOfEmployeesDataSetAreas;
         private System.Windows.Forms.BindingSource areasBindingSource;
         private DatabaseOfEmployeesDataSetAreasTableAdapters.AreasTableAdapter areasTableAdapter;
@@ -1172,6 +1144,7 @@
         private System.Windows.Forms.ComboBox comboBoxAreaFilter;
         private System.Windows.Forms.Button ButtonResetFilter;
         private System.Windows.Forms.Button ButtonShowDateFilter;
+        private System.Windows.Forms.TextBox textBoxNameWorkerIssue;
     }
 }
 
