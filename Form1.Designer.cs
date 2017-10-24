@@ -319,6 +319,8 @@
             // 
             // DataGridViewFilter
             // 
+            this.DataGridViewFilter.AllowUserToAddRows = false;
+            this.DataGridViewFilter.AllowUserToDeleteRows = false;
             this.DataGridViewFilter.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewFilter.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.DataGridViewFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -346,6 +348,8 @@
             // 
             // DataGridViewArea
             // 
+            this.DataGridViewArea.AllowUserToAddRows = false;
+            this.DataGridViewArea.AllowUserToDeleteRows = false;
             this.DataGridViewArea.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewArea.BackgroundColor = System.Drawing.SystemColors.ScrollBar;
             this.DataGridViewArea.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -425,6 +429,8 @@
             // 
             // DataGridViewPositions
             // 
+            this.DataGridViewPositions.AllowUserToAddRows = false;
+            this.DataGridViewPositions.AllowUserToDeleteRows = false;
             this.DataGridViewPositions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewPositions.BackgroundColor = System.Drawing.SystemColors.ScrollBar;
             this.DataGridViewPositions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -586,6 +592,8 @@
             // 
             // DataGridViewWorkers
             // 
+            this.DataGridViewWorkers.AllowUserToAddRows = false;
+            this.DataGridViewWorkers.AllowUserToDeleteRows = false;
             this.DataGridViewWorkers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewWorkers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DataGridViewWorkers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -732,6 +740,8 @@
             // 
             // DataGridViewSIZ
             // 
+            this.DataGridViewSIZ.AllowUserToAddRows = false;
+            this.DataGridViewSIZ.AllowUserToDeleteRows = false;
             this.DataGridViewSIZ.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewSIZ.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DataGridViewSIZ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -924,6 +934,8 @@
             // 
             // DataGridViewIssue
             // 
+            this.DataGridViewIssue.AllowUserToAddRows = false;
+            this.DataGridViewIssue.AllowUserToDeleteRows = false;
             this.DataGridViewIssue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.DataGridViewIssue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DataGridViewIssue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1053,6 +1065,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.workersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetWorkers)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
