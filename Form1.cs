@@ -39,7 +39,7 @@ namespace Employees
             siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
             HideColumns();
-            ComboBoxWorkerArea_LoadData();
+            ComboBoxArea_LoadData();
             ComboBoxWorkerPosition_LoadData();
 
 
@@ -718,6 +718,7 @@ namespace Employees
         private void ButtonResetFilter_Click(object sender, EventArgs e)
         {
             DataGridViewFilter_LoadData();
+            ComboBoxArea_LoadData();
         }
 
         private void TextBoxNameWorkerFilter_TextChanged(object sender, EventArgs e)
@@ -768,9 +769,9 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
-        private void ComboBoxWorkerArea_LoadData()
+        private void ComboBoxArea_LoadData()
         {
-            DataTable dtComboBoxWorkerArea = new DataTable();
+            DataTable dtComboBoxArea = new DataTable();
             try
             {
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
@@ -779,10 +780,23 @@ namespace Employees
                     string sqlcmd = "SELECT a.Area FROM Areas AS a;";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
-                        adapt.Fill(dtComboBoxWorkerArea);
-                        comboBoxWorkerArea.DataSource = dtComboBoxWorkerArea;
+                        adapt.Fill(dtComboBoxArea);
+
+                        comboBoxWorkerArea.DataSource = dtComboBoxArea;
                         comboBoxWorkerArea.DisplayMember = "Area";
                         comboBoxWorkerArea.SelectedIndex = -1;
+
+                        comboBoxWorkerPosition.DataSource = null;
+
+                        comboBoxNameArea.BindingContext = new BindingContext();
+                        comboBoxNameArea.DataSource = dtComboBoxArea;
+                        comboBoxNameArea.DisplayMember = "Area";
+                        comboBoxNameArea.SelectedIndex = -1;
+
+                        comboBoxAreaFilter.BindingContext = new BindingContext();
+                        comboBoxAreaFilter.DataSource = dtComboBoxArea;
+                        comboBoxAreaFilter.DisplayMember = "Area";
+                        comboBoxAreaFilter.SelectedIndex = -1;
                     }
                 }
             }

@@ -191,14 +191,12 @@
             // 
             // comboBoxAreaFilter
             // 
-            this.comboBoxAreaFilter.DisplayMember = "IdArea";
             this.comboBoxAreaFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAreaFilter.FormattingEnabled = true;
             this.comboBoxAreaFilter.Location = new System.Drawing.Point(1007, 27);
             this.comboBoxAreaFilter.Name = "comboBoxAreaFilter";
             this.comboBoxAreaFilter.Size = new System.Drawing.Size(197, 24);
             this.comboBoxAreaFilter.TabIndex = 59;
-            this.comboBoxAreaFilter.ValueMember = "IdArea";
             this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAreaFilter_SelectedIndexChanged);
             // 
             // button1
@@ -454,15 +452,12 @@
             // 
             // comboBoxNameArea
             // 
-            this.comboBoxNameArea.DataSource = this.areasBindingSource;
-            this.comboBoxNameArea.DisplayMember = "Area";
             this.comboBoxNameArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxNameArea.FormattingEnabled = true;
             this.comboBoxNameArea.Location = new System.Drawing.Point(30, 145);
             this.comboBoxNameArea.Name = "comboBoxNameArea";
             this.comboBoxNameArea.Size = new System.Drawing.Size(102, 24);
             this.comboBoxNameArea.TabIndex = 3;
-            this.comboBoxNameArea.ValueMember = "IdArea";
             // 
             // areasBindingSource
             // 
