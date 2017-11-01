@@ -58,9 +58,6 @@
             this.ButtonChangePosition = new System.Windows.Forms.Button();
             this.ButtonAddPosition = new System.Windows.Forms.Button();
             this.comboBoxNameArea = new System.Windows.Forms.ComboBox();
-            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNamePosition = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -69,6 +66,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
             this.groupsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
             this.label5 = new System.Windows.Forms.Label();
             this.DataGridViewWorkers = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteWorker = new System.Windows.Forms.Button();
@@ -106,6 +105,7 @@
             this.ButtonAddIssue = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.positionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter();
             this.positionsTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.PositionsTableAdapter();
@@ -117,16 +117,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewArea)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSIZ)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -459,21 +459,6 @@
             this.comboBoxNameArea.Size = new System.Drawing.Size(102, 24);
             this.comboBoxNameArea.TabIndex = 3;
             // 
-            // areasBindingSource
-            // 
-            this.areasBindingSource.DataMember = "Areas";
-            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSetBindingSource;
-            // 
-            // databaseOfEmployeesDataSetBindingSource
-            // 
-            this.databaseOfEmployeesDataSetBindingSource.DataSource = this.databaseOfEmployeesDataSet;
-            this.databaseOfEmployeesDataSetBindingSource.Position = 0;
-            // 
-            // databaseOfEmployeesDataSet
-            // 
-            this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
-            this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -560,6 +545,16 @@
             // 
             this.groupsBindingSource.DataMember = "Groups";
             this.groupsBindingSource.DataSource = this.databaseOfEmployeesDataSetBindingSource;
+            // 
+            // databaseOfEmployeesDataSetBindingSource
+            // 
+            this.databaseOfEmployeesDataSetBindingSource.DataSource = this.databaseOfEmployeesDataSet;
+            this.databaseOfEmployeesDataSetBindingSource.Position = 0;
+            // 
+            // databaseOfEmployeesDataSet
+            // 
+            this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
+            this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label5
             // 
@@ -848,6 +843,7 @@
             this.comboBoxIssueSIZ.Name = "comboBoxIssueSIZ";
             this.comboBoxIssueSIZ.Size = new System.Drawing.Size(427, 24);
             this.comboBoxIssueSIZ.TabIndex = 46;
+            this.comboBoxIssueSIZ.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxIssueSIZ_SelectionChangeCommitted);
             // 
             // textBoxNotationOfIssue
             // 
@@ -948,6 +944,11 @@
             this.label12.TabIndex = 33;
             this.label12.Text = "Работник:";
             // 
+            // areasBindingSource
+            // 
+            this.areasBindingSource.DataMember = "Areas";
+            this.areasBindingSource.DataSource = this.databaseOfEmployeesDataSetBindingSource;
+            // 
             // positionsBindingSource
             // 
             this.positionsBindingSource.DataMember = "Positions";
@@ -984,12 +985,11 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -997,6 +997,7 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).EndInit();
             this.ResumeLayout(false);
 

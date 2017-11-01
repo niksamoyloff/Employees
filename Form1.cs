@@ -40,7 +40,6 @@ namespace Employees
             issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
             HideColumns();
             ComboBoxArea_LoadData();
-            ComboBoxWorkerPosition_LoadData();
             ComboBoxIssueSIZ_LoadData();
 
 
@@ -664,7 +663,7 @@ namespace Employees
 
         private void DataGridViewSIZ_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            
+            ComboBoxIssueSIZ_LoadData();
         }
 
         /// <summary>
@@ -813,7 +812,7 @@ namespace Employees
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT SIZ.NameSIZ FROM SIZ;";
+                    string sqlcmd = "SELECT DISTINCT SIZ.NameSIZ FROM SIZ;";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
                         DataTable dtComboBoxNameSIZ = new DataTable();
@@ -821,6 +820,7 @@ namespace Employees
 
                         comboBoxIssueSIZ.DataSource = dtComboBoxNameSIZ;
                         comboBoxIssueSIZ.DisplayMember = "NameSIZ";
+                        comboBoxIssueSIZ.SelectedIndex = -1;
                     }
                 }
             }
@@ -828,6 +828,34 @@ namespace Employees
             {
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
+        }
+        private void ComboBoxIssueTypeOfSIZ_LoadData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    string sqlcmd = "SELECT DISTINCT SIZ.TypeOfSIZ FROM SIZ WHERE SIZ.NameSIZ LIKE N'" + comboBoxIssueSIZ.Text + "';";
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        DataTable dtComboBoxTypeOfSIZ = new DataTable();
+                        adapt.Fill(dtComboBoxTypeOfSIZ);
+
+                        comboBoxTypeOfSIZ.DataSource = dtComboBoxTypeOfSIZ;
+                        comboBoxTypeOfSIZ.DisplayMember = "TypeOfSIZ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
+            }
+        }
+
+        private void ComboBoxIssueSIZ_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ComboBoxIssueTypeOfSIZ_LoadData();
         }
     }
 }
