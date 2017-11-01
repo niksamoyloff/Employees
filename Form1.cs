@@ -41,6 +41,7 @@ namespace Employees
             HideColumns();
             ComboBoxArea_LoadData();
             ComboBoxWorkerPosition_LoadData();
+            ComboBoxIssueSIZ_LoadData();
 
 
             // TODO: This line of code loads data into the 'databaseOfEmployeesDataSet.Groups' table. You can move, or remove it, as needed.
@@ -749,7 +750,6 @@ namespace Employees
 
         private void ComboBoxWorkerPosition_LoadData()
         {
-            DataTable dtComboBoxWorkerPosition = new DataTable();
             try
             {
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
@@ -758,6 +758,7 @@ namespace Employees
                     string sqlcmd = "SELECT p.Position FROM Positions AS p INNER JOIN Areas AS a ON p.Area = a.IdArea and a.Area LIKE N'" + comboBoxWorkerArea.Text + "';";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
+                        DataTable dtComboBoxWorkerPosition = new DataTable();
                         adapt.Fill(dtComboBoxWorkerPosition);
                         comboBoxWorkerPosition.DataSource = dtComboBoxWorkerPosition;
                         comboBoxWorkerPosition.DisplayMember = "Position";
@@ -771,15 +772,15 @@ namespace Employees
         }
         private void ComboBoxArea_LoadData()
         {
-            DataTable dtComboBoxArea = new DataTable();
             try
             {
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT a.Area FROM Areas AS a;";
+                    string sqlcmd = "SELECT Areas.Area FROM Areas;";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
+                        DataTable dtComboBoxArea = new DataTable();
                         adapt.Fill(dtComboBoxArea);
 
                         comboBoxWorkerArea.DataSource = dtComboBoxArea;
@@ -803,6 +804,29 @@ namespace Employees
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
+            }
+        }
+        private void ComboBoxIssueSIZ_LoadData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    string sqlcmd = "SELECT SIZ.NameSIZ FROM SIZ;";
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        DataTable dtComboBoxNameSIZ = new DataTable();
+                        adapt.Fill(dtComboBoxNameSIZ);
+
+                        comboBoxIssueSIZ.DataSource = dtComboBoxNameSIZ;
+                        comboBoxIssueSIZ.DisplayMember = "NameSIZ";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
         }
     }
