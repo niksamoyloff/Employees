@@ -39,17 +39,9 @@ namespace Employees
             siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
             issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
             HideColumns();
-            ComboBoxArea_LoadData();
+            ComboBoxAreaAreas_LoadData();
             ComboBoxIssueSIZ_LoadData();
-
-
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSet.Groups' table. You can move, or remove it, as needed.
-            this.groupsTableAdapter.Fill(this.databaseOfEmployeesDataSet.Groups);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSet.Positions' table. You can move, or remove it, as needed.
-            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSet.Positions);
-            // TODO: This line of code loads data into the 'databaseOfEmployeesDataSet.Areas' table. You can move, or remove it, as needed.
-            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSet.Areas);
-
+            ComboBoxIssueNameWorker_LoadData();
         }
 
         /// <summary>
@@ -349,14 +341,30 @@ namespace Employees
             {
                 if (textBoxNameWorker.Text != "")
                 {
-                    paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
-                    paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
-                    paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
-                    paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
-                    worker.ChangeRecord(worker.SqlInsertCmd, paramsWorker);
-                    AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
-                    worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
-                    ClearParamsWorker();
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewWorkers.RowCount; i++)
+                    {
+                        if (DataGridViewWorkers.Rows[i].Cells[1].Value.ToString() == textBoxNameWorker.Text
+                            && DataGridViewWorkers.Rows[i].Cells[2].Value.ToString() == comboBoxWorkerArea.Text
+                            && DataGridViewWorkers.Rows[i].Cells[3].Value.ToString() == comboBoxWorkerPosition.Text
+                            && DataGridViewWorkers.Rows[i].Cells[4].Value.ToString() == comboBoxWorkerGroup.Text)
+                        {
+                            MessageBox.Show("Работник уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
+                        paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
+                        paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
+                        paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
+                        worker.ChangeRecord(worker.SqlInsertCmd, paramsWorker);
+                        AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
+                        worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+                        ClearParamsWorker();
+                    }
                 }
                 else
                 {
@@ -375,21 +383,37 @@ namespace Employees
             {
                 if (textBoxNameWorker.Text != "")
                 {
-                    if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewWorkers.RowCount; i++)
                     {
-                        paramsWorker.Add(new SqlParameter("@id", ID));
-                        paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
-                        paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
-                        paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
-                        paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
-                        worker.ChangeRecord(worker.SqlUpdateCmd, paramsWorker);
-                        worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
-                        ClearParamsWorker();
-                    }                        
+                        if (DataGridViewWorkers.Rows[i].Cells[1].Value.ToString() == textBoxNameWorker.Text
+                            && DataGridViewWorkers.Rows[i].Cells[2].Value.ToString() == comboBoxWorkerArea.Text
+                            && DataGridViewWorkers.Rows[i].Cells[3].Value.ToString() == comboBoxWorkerPosition.Text
+                            && DataGridViewWorkers.Rows[i].Cells[4].Value.ToString() == comboBoxWorkerGroup.Text)
+                        {
+                            MessageBox.Show("Работник уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                        {
+                            paramsWorker.Add(new SqlParameter("@id", ID));
+                            paramsWorker.Add(new SqlParameter("@nameWorker", textBoxNameWorker.Text));
+                            paramsWorker.Add(new SqlParameter("@areaWorker", comboBoxWorkerArea.Text));
+                            paramsWorker.Add(new SqlParameter("@positionWorker", comboBoxWorkerPosition.Text));
+                            paramsWorker.Add(new SqlParameter("@groupWorker", comboBoxWorkerGroup.Text));
+                            worker.ChangeRecord(worker.SqlUpdateCmd, paramsWorker);
+                            worker.DisplayData(worker.SqlDisplayCmd, DataGridViewWorkers);
+                            ClearParamsWorker();
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Введите ФИО работника");
+                    MessageBox.Show("Выберете запись для изменения");
                 }
             }
             catch (Exception ex)
@@ -455,13 +479,28 @@ namespace Employees
             {
                 if (textBoxNameSIZ.Text != "")
                 {
-                    paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
-                    paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
-                    paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
-                    siz.ChangeRecord(siz.SqlInsertCmd, paramsSIZ);
-                    AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
-                    siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
-                    ClearParamsSIZ();
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewSIZ.RowCount; i++)
+                    {
+                        if (DataGridViewSIZ.Rows[i].Cells[1].Value.ToString() == textBoxNameSIZ.Text
+                            && DataGridViewSIZ.Rows[i].Cells[2].Value.ToString() == textBoxInventNumbSIZ.Text
+                            && DataGridViewSIZ.Rows[i].Cells[3].Value.ToString() == textBoxTypeOfSIZ.Text)
+                        {
+                            MessageBox.Show("СИЗ/Прибор уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
+                        paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                        paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
+                        siz.ChangeRecord(siz.SqlInsertCmd, paramsSIZ);
+                        AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
+                        siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+                        ClearParamsSIZ();
+                    }
                 }
                 else
                 {
@@ -480,15 +519,30 @@ namespace Employees
             {
                 if (textBoxNameSIZ.Text != "")
                 {
-                    if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewSIZ.RowCount; i++)
                     {
-                        paramsSIZ.Add(new SqlParameter("@id", ID));
-                        paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
-                        paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
-                        paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
-                        siz.ChangeRecord(siz.SqlUpdateCmd, paramsSIZ);
-                        siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
-                        ClearParamsSIZ();
+                        if (DataGridViewSIZ.Rows[i].Cells[1].Value.ToString() == textBoxNameSIZ.Text
+                            && DataGridViewSIZ.Rows[i].Cells[2].Value.ToString() == textBoxInventNumbSIZ.Text
+                            && DataGridViewSIZ.Rows[i].Cells[3].Value.ToString() == textBoxTypeOfSIZ.Text)
+                        {
+                            MessageBox.Show("СИЗ/Прибор уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                        {
+                            paramsSIZ.Add(new SqlParameter("@id", ID));
+                            paramsSIZ.Add(new SqlParameter("@nameSIZ", textBoxNameSIZ.Text));
+                            paramsSIZ.Add(new SqlParameter("@invNumbSIZ", textBoxInventNumbSIZ.Text));
+                            paramsSIZ.Add(new SqlParameter("@typeOfSIZ", textBoxTypeOfSIZ.Text));
+                            siz.ChangeRecord(siz.SqlUpdateCmd, paramsSIZ);
+                            siz.DisplayData(siz.SqlDispayCmd, DataGridViewSIZ);
+                            ClearParamsSIZ();
+                        }
                     }
                 }
                 else
@@ -542,7 +596,7 @@ namespace Employees
             try
             {
                 ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
-                textBoxNameWorkerIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
+                comboBoxIssueNameWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
                 comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
                 comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
                 dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
@@ -557,30 +611,48 @@ namespace Employees
 
         private void ButtonAddIssue_Click(object sender, EventArgs e)
         {
-            if (textBoxNameWorkerIssue.Text != "")
+            try
             {
-                try
+                if (comboBoxIssueNameWorker.Text != "")
                 {
-                    paramsIssue.Add(new SqlParameter("@issueWorker", textBoxNameWorkerIssue.Text));
-                    paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
-                    paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
-                    paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
-                    paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
-                    paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
-                    issue.ChangeRecord(issue.SqlInsertCmd, paramsIssue);
-                    AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
-                    issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
-                    ClearParamsIssue();
-                    DataGridViewFilter_LoadData();
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewIssue.RowCount; i++)
+                    {
+                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == comboBoxIssueNameWorker.Text
+                            && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
+                            && DataGridViewIssue.Rows[i].Cells[5].Value.ToString() == dateTimePickerIssueWorkability.Value.ToShortDateString()
+                            && DataGridViewIssue.Rows[i].Cells[6].Value.ToString() == textBoxNotationOfIssue.Text)
+                        {
+                            MessageBox.Show("СИЗ/Прибор уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
+                        paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+                        paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
+                        paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
+                        paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
+                        paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+                        issue.ChangeRecord(issue.SqlInsertCmd, paramsIssue);
+                        AutoClosingMessageBox.Show("Запись добавлена.", "Добавление записи", 1000);
+                        issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+                        ClearParamsIssue();
+                        DataGridViewFilter_LoadData();
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
+                    MessageBox.Show("Введите ФИО работника");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Введите ФИО работника");
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
 
@@ -593,7 +665,7 @@ namespace Employees
                     if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
                         paramsIssue.Add(new SqlParameter("@id", ID));
-                        paramsIssue.Add(new SqlParameter("@issueWorker", textBoxNameWorkerIssue.Text));
+                        paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
                         paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
                         paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
                         paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
@@ -648,17 +720,17 @@ namespace Employees
         /// 
         private void DataGridViewArea_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            this.areasTableAdapter.Fill(this.databaseOfEmployeesDataSet.Areas);
+            ComboBoxAreaAreas_LoadData();
         }
 
         private void DataGridViewPositions_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            this.positionsTableAdapter.Fill(this.databaseOfEmployeesDataSet.Positions);
+            ComboBoxWorkerPosition_LoadData();
         }
 
         private void DataGridViewWorkers_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            
+            ComboBoxIssueNameWorker_LoadData();
         }
 
         private void DataGridViewSIZ_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -699,7 +771,6 @@ namespace Employees
                 }
                 textBoxNameWorkerFilter.AutoCompleteCustomSource = sourceNames;
                 textBoxNameSIZFilter.AutoCompleteCustomSource = sourceSIZ;
-                textBoxNameWorkerIssue.AutoCompleteCustomSource = sourceNames;
             }
             catch (Exception ex)
             {
@@ -708,7 +779,7 @@ namespace Employees
 
         }
 
-        private void ComboBoxAreaFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxFilterArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
             dv.RowFilter = string.Format("Участок LIKE '%{0}%'", comboBoxAreaFilter.Text);
@@ -718,24 +789,24 @@ namespace Employees
         private void ButtonResetFilter_Click(object sender, EventArgs e)
         {
             DataGridViewFilter_LoadData();
-            ComboBoxArea_LoadData();
+            ComboBoxAreaAreas_LoadData();
         }
 
-        private void TextBoxNameWorkerFilter_TextChanged(object sender, EventArgs e)
+        private void TextBoxFilterNameWorker_TextChanged(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
             dv.RowFilter = string.Format("[ФИО работника] LIKE '%{0}%'", textBoxNameWorkerFilter.Text);
             DataGridViewFilter.DataSource = dv;
         }
 
-        private void TextBoxNameSIZFilter_TextChanged(object sender, EventArgs e)
+        private void TextBoxFilterNameSIZ_TextChanged(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
             dv.RowFilter = string.Format("[СИЗ / Прибор] LIKE '%{0}%'", textBoxNameSIZFilter.Text);
             DataGridViewFilter.DataSource = dv;
         }
 
-        private void ButtonShowDateFilter_Click(object sender, EventArgs e)
+        private void ButtonFilterShowDate_Click(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
             dv.RowFilter = string.Format("[Дата выдачи] >= '{0}' AND [Дата выдачи] <= '{1}'", dateTimePickerFilterStart.Value.ToShortDateString(), dateTimePickerFilterEnd.Value.ToShortDateString());
@@ -745,6 +816,11 @@ namespace Employees
         private void ComboBoxWorkerArea_SelectionChangeCommitted(object sender, EventArgs e)
         {
             ComboBoxWorkerPosition_LoadData();
+        }
+
+        private void ComboBoxIssueSIZ_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ComboBoxIssueTypeOfSIZ_LoadData();
         }
 
         private void ComboBoxWorkerPosition_LoadData()
@@ -769,7 +845,7 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
-        private void ComboBoxArea_LoadData()
+        private void ComboBoxAreaAreas_LoadData()
         {
             try
             {
@@ -852,10 +928,34 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
         }
-
-        private void ComboBoxIssueSIZ_SelectionChangeCommitted(object sender, EventArgs e)
+        private void ComboBoxIssueNameWorker_LoadData()
         {
-            ComboBoxIssueTypeOfSIZ_LoadData();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    string sqlcmd = "SELECT DISTINCT Workers.NameWorker FROM Workers;";
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        DataTable dtComboBoxNameWorker = new DataTable();
+                        adapt.Fill(dtComboBoxNameWorker);
+
+                        comboBoxIssueNameWorker.DataSource = dtComboBoxNameWorker;
+                        comboBoxIssueNameWorker.DisplayMember = "NameWorker";
+                        comboBoxIssueNameWorker.SelectedIndex = -1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
+            }
+        }
+
+        private void ComboBoxWorkerArea_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxWorkerPosition_LoadData();
         }
     }
 }

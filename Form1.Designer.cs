@@ -89,7 +89,7 @@
             this.textBoxNameSIZ = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.textBoxNameWorkerIssue = new System.Windows.Forms.TextBox();
+            this.comboBoxIssueNameWorker = new System.Windows.Forms.ComboBox();
             this.comboBoxTypeOfSIZ = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.dateTimePickerIssueWorkability = new System.Windows.Forms.DateTimePicker();
@@ -177,7 +177,7 @@
             this.ButtonShowDateFilter.TabIndex = 61;
             this.ButtonShowDateFilter.Text = "Показать";
             this.ButtonShowDateFilter.UseVisualStyleBackColor = true;
-            this.ButtonShowDateFilter.Click += new System.EventHandler(this.ButtonShowDateFilter_Click);
+            this.ButtonShowDateFilter.Click += new System.EventHandler(this.ButtonFilterShowDate_Click);
             // 
             // ButtonResetFilter
             // 
@@ -197,7 +197,7 @@
             this.comboBoxAreaFilter.Name = "comboBoxAreaFilter";
             this.comboBoxAreaFilter.Size = new System.Drawing.Size(197, 24);
             this.comboBoxAreaFilter.TabIndex = 59;
-            this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAreaFilter_SelectedIndexChanged);
+            this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterArea_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -243,7 +243,7 @@
             this.textBoxNameSIZFilter.Name = "textBoxNameSIZFilter";
             this.textBoxNameSIZFilter.Size = new System.Drawing.Size(375, 22);
             this.textBoxNameSIZFilter.TabIndex = 51;
-            this.textBoxNameSIZFilter.TextChanged += new System.EventHandler(this.TextBoxNameSIZFilter_TextChanged);
+            this.textBoxNameSIZFilter.TextChanged += new System.EventHandler(this.TextBoxFilterNameSIZ_TextChanged);
             // 
             // dateTimePickerFilterStart
             // 
@@ -290,7 +290,7 @@
             this.textBoxNameWorkerFilter.Name = "textBoxNameWorkerFilter";
             this.textBoxNameWorkerFilter.Size = new System.Drawing.Size(302, 22);
             this.textBoxNameWorkerFilter.TabIndex = 1;
-            this.textBoxNameWorkerFilter.TextChanged += new System.EventHandler(this.TextBoxNameWorkerFilter_TextChanged);
+            this.textBoxNameWorkerFilter.TextChanged += new System.EventHandler(this.TextBoxFilterNameWorker_TextChanged);
             // 
             // DataGridViewFilter
             // 
@@ -301,6 +301,7 @@
             this.DataGridViewFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewFilter.Location = new System.Drawing.Point(3, 113);
             this.DataGridViewFilter.Name = "DataGridViewFilter";
+            this.DataGridViewFilter.ReadOnly = true;
             this.DataGridViewFilter.RowTemplate.Height = 24;
             this.DataGridViewFilter.Size = new System.Drawing.Size(1217, 529);
             this.DataGridViewFilter.TabIndex = 0;
@@ -331,6 +332,7 @@
             this.DataGridViewArea.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewArea.Location = new System.Drawing.Point(329, 43);
             this.DataGridViewArea.Name = "DataGridViewArea";
+            this.DataGridViewArea.ReadOnly = true;
             this.DataGridViewArea.RowTemplate.Height = 24;
             this.DataGridViewArea.Size = new System.Drawing.Size(379, 580);
             this.DataGridViewArea.TabIndex = 5;
@@ -413,6 +415,7 @@
             this.DataGridViewPositions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewPositions.Location = new System.Drawing.Point(362, 43);
             this.DataGridViewPositions.Name = "DataGridViewPositions";
+            this.DataGridViewPositions.ReadOnly = true;
             this.DataGridViewPositions.RowTemplate.Height = 24;
             this.DataGridViewPositions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DataGridViewPositions.Size = new System.Drawing.Size(831, 577);
@@ -518,6 +521,7 @@
             this.comboBoxWorkerArea.Size = new System.Drawing.Size(213, 24);
             this.comboBoxWorkerArea.TabIndex = 21;
             this.comboBoxWorkerArea.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxWorkerArea_SelectionChangeCommitted);
+            this.comboBoxWorkerArea.SelectedValueChanged += new System.EventHandler(this.ComboBoxWorkerArea_SelectedValueChanged);
             // 
             // label6
             // 
@@ -575,6 +579,7 @@
             this.DataGridViewWorkers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewWorkers.Location = new System.Drawing.Point(156, 99);
             this.DataGridViewWorkers.Name = "DataGridViewWorkers";
+            this.DataGridViewWorkers.ReadOnly = true;
             this.DataGridViewWorkers.RowTemplate.Height = 24;
             this.DataGridViewWorkers.Size = new System.Drawing.Size(1049, 540);
             this.DataGridViewWorkers.TabIndex = 17;
@@ -710,6 +715,7 @@
             this.DataGridViewSIZ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewSIZ.Location = new System.Drawing.Point(159, 94);
             this.DataGridViewSIZ.Name = "DataGridViewSIZ";
+            this.DataGridViewSIZ.ReadOnly = true;
             this.DataGridViewSIZ.RowTemplate.Height = 24;
             this.DataGridViewSIZ.Size = new System.Drawing.Size(1043, 532);
             this.DataGridViewSIZ.TabIndex = 29;
@@ -766,7 +772,7 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.textBoxNameWorkerIssue);
+            this.tabPage5.Controls.Add(this.comboBoxIssueNameWorker);
             this.tabPage5.Controls.Add(this.comboBoxTypeOfSIZ);
             this.tabPage5.Controls.Add(this.label21);
             this.tabPage5.Controls.Add(this.dateTimePickerIssueWorkability);
@@ -790,14 +796,14 @@
             this.tabPage5.Text = "Выдача СИЗ/приборов";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // textBoxNameWorkerIssue
+            // comboBoxIssueNameWorker
             // 
-            this.textBoxNameWorkerIssue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBoxNameWorkerIssue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxNameWorkerIssue.Location = new System.Drawing.Point(33, 50);
-            this.textBoxNameWorkerIssue.Name = "textBoxNameWorkerIssue";
-            this.textBoxNameWorkerIssue.Size = new System.Drawing.Size(366, 22);
-            this.textBoxNameWorkerIssue.TabIndex = 51;
+            this.comboBoxIssueNameWorker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxIssueNameWorker.FormattingEnabled = true;
+            this.comboBoxIssueNameWorker.Location = new System.Drawing.Point(33, 48);
+            this.comboBoxIssueNameWorker.Name = "comboBoxIssueNameWorker";
+            this.comboBoxIssueNameWorker.Size = new System.Drawing.Size(386, 24);
+            this.comboBoxIssueNameWorker.TabIndex = 51;
             // 
             // comboBoxTypeOfSIZ
             // 
@@ -839,7 +845,7 @@
             // 
             this.comboBoxIssueSIZ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxIssueSIZ.FormattingEnabled = true;
-            this.comboBoxIssueSIZ.Location = new System.Drawing.Point(425, 48);
+            this.comboBoxIssueSIZ.Location = new System.Drawing.Point(437, 48);
             this.comboBoxIssueSIZ.Name = "comboBoxIssueSIZ";
             this.comboBoxIssueSIZ.Size = new System.Drawing.Size(427, 24);
             this.comboBoxIssueSIZ.TabIndex = 46;
@@ -874,7 +880,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(422, 20);
+            this.label10.Location = new System.Drawing.Point(434, 20);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 18);
             this.label10.TabIndex = 40;
@@ -889,6 +895,7 @@
             this.DataGridViewIssue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewIssue.Location = new System.Drawing.Point(146, 151);
             this.DataGridViewIssue.Name = "DataGridViewIssue";
+            this.DataGridViewIssue.ReadOnly = true;
             this.DataGridViewIssue.RowTemplate.Height = 24;
             this.DataGridViewIssue.Size = new System.Drawing.Size(1062, 488);
             this.DataGridViewIssue.TabIndex = 39;
@@ -1077,7 +1084,6 @@
         private System.Windows.Forms.ComboBox comboBoxAreaFilter;
         private System.Windows.Forms.Button ButtonResetFilter;
         private System.Windows.Forms.Button ButtonShowDateFilter;
-        private System.Windows.Forms.TextBox textBoxNameWorkerIssue;
         private System.Windows.Forms.BindingSource databaseOfEmployeesDataSetBindingSource;
         private DatabaseOfEmployeesDataSet databaseOfEmployeesDataSet;
         private System.Windows.Forms.BindingSource areasBindingSource;
@@ -1086,6 +1092,7 @@
         private DatabaseOfEmployeesDataSetTableAdapters.PositionsTableAdapter positionsTableAdapter;
         private System.Windows.Forms.BindingSource groupsBindingSource;
         private DatabaseOfEmployeesDataSetTableAdapters.GroupsTableAdapter groupsTableAdapter;
+        private System.Windows.Forms.ComboBox comboBoxIssueNameWorker;
     }
 }
 
