@@ -42,6 +42,7 @@ namespace Employees
             ComboBoxAreaAreas_LoadData();
             ComboBoxIssueSIZ_LoadData();
             ComboBoxIssueNameWorker_LoadData();
+            ComboBoxWorkerGroups_LoadData();
         }
 
         /// <summary>
@@ -603,7 +604,11 @@ namespace Employees
                 dateTimePickerIssueWorkability.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[5].Value.ToString());
                 textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[6].Value.ToString();
             }
-            catch(FormatException ex)
+            catch(FormatException)
+            {
+                MessageBox.Show("Нет даты выдачи или годности.", "Ошибка");
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
@@ -625,7 +630,7 @@ namespace Employees
                             && DataGridViewIssue.Rows[i].Cells[5].Value.ToString() == dateTimePickerIssueWorkability.Value.ToShortDateString()
                             && DataGridViewIssue.Rows[i].Cells[6].Value.ToString() == textBoxNotationOfIssue.Text)
                         {
-                            MessageBox.Show("СИЗ/Прибор уже существует.", "Ошибка:");
+                            MessageBox.Show("СИЗ/Прибор работнику уже выдан.", "Ошибка:");
                             flag = true;
                             break;
                         }
@@ -647,7 +652,7 @@ namespace Employees
                 }
                 else
                 {
-                    MessageBox.Show("Введите ФИО работника");
+                    MessageBox.Show("Выберете работника");
                 }
             }
             catch (Exception ex)
@@ -662,19 +667,37 @@ namespace Employees
             {
                 if (ID != 0)
                 {
-                    if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    bool flag = false; // Flag for detecting last item in column
+                    for (int i = 0; i < DataGridViewIssue.RowCount; i++)
                     {
-                        paramsIssue.Add(new SqlParameter("@id", ID));
-                        paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
-                        paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
-                        paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
-                        paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
-                        paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
-                        paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
-                        issue.ChangeRecord(issue.SqlUpdateCmd, paramsIssue);
-                        issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
-                        ClearParamsIssue();
-                        DataGridViewFilter_LoadData();
+                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == comboBoxIssueNameWorker.Text
+                            && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
+                            && DataGridViewIssue.Rows[i].Cells[5].Value.ToString() == dateTimePickerIssueWorkability.Value.ToShortDateString()
+                            && DataGridViewIssue.Rows[i].Cells[6].Value.ToString() == textBoxNotationOfIssue.Text)
+                        {
+                            MessageBox.Show("Запись о выдаче уже существует.", "Ошибка:");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) // Last item detected
+                    {
+                        if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                        {
+                            paramsIssue.Add(new SqlParameter("@id", ID));
+                            paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
+                            paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
+                            paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
+                            paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
+                            paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
+                            paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
+                            issue.ChangeRecord(issue.SqlUpdateCmd, paramsIssue);
+                            issue.DisplayData(issue.SqlDispayCmd, DataGridViewIssue);
+                            ClearParamsIssue();
+                            DataGridViewFilter_LoadData();
+                        }
                     }
                 }
                 else
@@ -823,6 +846,16 @@ namespace Employees
             ComboBoxIssueTypeOfSIZ_LoadData();
         }
 
+        private void ComboBoxWorkerArea_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxWorkerPosition_LoadData();
+        }
+
+        private void ComboBoxIssueSIZ_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBoxIssueTypeOfSIZ_LoadData();
+        }
+
         private void ComboBoxWorkerPosition_LoadData()
         {
             try
@@ -881,6 +914,30 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
+        private void ComboBoxWorkerGroups_LoadData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
+                {
+                    conn.Open();
+                    string sqlcmd = "SELECT GroupOfES FROM Groups;";
+                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
+                    {
+                        DataTable dtComboBoxGroups = new DataTable();
+                        adapt.Fill(dtComboBoxGroups);
+
+                        comboBoxWorkerGroup.DataSource = dtComboBoxGroups;
+                        comboBoxWorkerGroup.DisplayMember = "GroupOfES";
+                        comboBoxWorkerGroup.SelectedIndex = -1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
+            }
+        }
         private void ComboBoxIssueSIZ_LoadData()
         {
             try
@@ -912,7 +969,7 @@ namespace Employees
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT DISTINCT SIZ.TypeOfSIZ FROM SIZ WHERE SIZ.NameSIZ LIKE N'" + comboBoxIssueSIZ.Text + "';";
+                    string sqlcmd = "SELECT DISTINCT SIZ.TypeOfSIZ FROM SIZ WHERE SIZ.NameSIZ LIKE N'" + comboBoxIssueSIZ.Text + "' ORDER BY TypeOfSIZ DESC;";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
                         DataTable dtComboBoxTypeOfSIZ = new DataTable();
@@ -953,9 +1010,6 @@ namespace Employees
             }
         }
 
-        private void ComboBoxWorkerArea_SelectedValueChanged(object sender, EventArgs e)
-        {
-            ComboBoxWorkerPosition_LoadData();
-        }
+
     }
 }
