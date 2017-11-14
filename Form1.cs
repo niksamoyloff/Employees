@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Employees
 {
@@ -1010,6 +1011,23 @@ namespace Employees
             }
         }
 
+        private void DisplayInExcel()
+        {
+            var excelReport = new Excel.Application
+            {
+                Visible = true,
+                WindowState = Excel.XlWindowState.xlMaximized
+            };
+            excelReport.Workbooks.Add();
+            Excel.Worksheet workSheet = (Excel.Worksheet)excelReport.ActiveSheet;
+            workSheet.Cells[1, "A"] = "1";
+            workSheet.Cells[1, "B"] = "2";
 
+        }
+
+        private void ButtonExportToExcel_Click(object sender, EventArgs e)
+        {
+            DisplayInExcel();
+        }
     }
 }

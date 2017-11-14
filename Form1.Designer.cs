@@ -34,7 +34,7 @@
             this.ButtonShowDateFilter = new System.Windows.Forms.Button();
             this.ButtonResetFilter = new System.Windows.Forms.Button();
             this.comboBoxAreaFilter = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ButtonExportToExcel = new System.Windows.Forms.Button();
             this.dateTimePickerFilterEnd = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -65,8 +65,6 @@
             this.comboBoxWorkerArea = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxWorkerGroup = new System.Windows.Forms.ComboBox();
-            this.databaseOfEmployeesDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
             this.label5 = new System.Windows.Forms.Label();
             this.DataGridViewWorkers = new System.Windows.Forms.DataGridView();
             this.ButtonDeleteWorker = new System.Windows.Forms.Button();
@@ -104,6 +102,8 @@
             this.ButtonAddIssue = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.databaseOfEmployeesDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.databaseOfEmployeesDataSet = new Employees.DatabaseOfEmployeesDataSet();
             this.areasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.positionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.areasTableAdapter = new Employees.DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter();
@@ -116,13 +116,13 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewSIZ)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -146,7 +146,7 @@
             this.tabPageFilter.Controls.Add(this.ButtonShowDateFilter);
             this.tabPageFilter.Controls.Add(this.ButtonResetFilter);
             this.tabPageFilter.Controls.Add(this.comboBoxAreaFilter);
-            this.tabPageFilter.Controls.Add(this.button1);
+            this.tabPageFilter.Controls.Add(this.ButtonExportToExcel);
             this.tabPageFilter.Controls.Add(this.dateTimePickerFilterEnd);
             this.tabPageFilter.Controls.Add(this.label17);
             this.tabPageFilter.Controls.Add(this.label18);
@@ -196,14 +196,15 @@
             this.comboBoxAreaFilter.TabIndex = 59;
             this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterArea_SelectedIndexChanged);
             // 
-            // button1
+            // ButtonExportToExcel
             // 
-            this.button1.Location = new System.Drawing.Point(1070, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(134, 37);
-            this.button1.TabIndex = 58;
-            this.button1.Text = "Экспорт в Excel";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ButtonExportToExcel.Location = new System.Drawing.Point(1070, 61);
+            this.ButtonExportToExcel.Name = "ButtonExportToExcel";
+            this.ButtonExportToExcel.Size = new System.Drawing.Size(134, 37);
+            this.ButtonExportToExcel.TabIndex = 58;
+            this.ButtonExportToExcel.Text = "Экспорт в Excel";
+            this.ButtonExportToExcel.UseVisualStyleBackColor = true;
+            this.ButtonExportToExcel.Click += new System.EventHandler(this.ButtonExportToExcel_Click);
             // 
             // dateTimePickerFilterEnd
             // 
@@ -532,6 +533,7 @@
             // 
             // comboBoxWorkerGroup
             // 
+            this.comboBoxWorkerGroup.DisplayMember = "IdGroupOfES";
             this.comboBoxWorkerGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxWorkerGroup.FormattingEnabled = true;
             this.comboBoxWorkerGroup.Location = new System.Drawing.Point(953, 57);
@@ -539,16 +541,6 @@
             this.comboBoxWorkerGroup.Size = new System.Drawing.Size(154, 24);
             this.comboBoxWorkerGroup.TabIndex = 19;
             this.comboBoxWorkerGroup.ValueMember = "IdGroupOfES";
-            // 
-            // databaseOfEmployeesDataSetBindingSource
-            // 
-            this.databaseOfEmployeesDataSetBindingSource.DataSource = this.databaseOfEmployeesDataSet;
-            this.databaseOfEmployeesDataSetBindingSource.Position = 0;
-            // 
-            // databaseOfEmployeesDataSet
-            // 
-            this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
-            this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label5
             // 
@@ -942,6 +934,16 @@
             this.label12.TabIndex = 33;
             this.label12.Text = "Работник:";
             // 
+            // databaseOfEmployeesDataSetBindingSource
+            // 
+            this.databaseOfEmployeesDataSetBindingSource.DataSource = this.databaseOfEmployeesDataSet;
+            this.databaseOfEmployeesDataSetBindingSource.Position = 0;
+            // 
+            // databaseOfEmployeesDataSet
+            // 
+            this.databaseOfEmployeesDataSet.DataSetName = "DatabaseOfEmployeesDataSet";
+            this.databaseOfEmployeesDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // areasBindingSource
             // 
             this.areasBindingSource.DataMember = "Areas";
@@ -981,8 +983,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewPositions)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewWorkers)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -990,6 +990,8 @@
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewIssue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.databaseOfEmployeesDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.areasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.positionsBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -1058,7 +1060,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ButtonExportToExcel;
         private System.Windows.Forms.DateTimePicker dateTimePickerFilterEnd;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.DateTimePicker dateTimePickerIssueWorkability;
