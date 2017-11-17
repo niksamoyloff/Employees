@@ -1018,11 +1018,60 @@ namespace Employees
                 Visible = true,
                 WindowState = Excel.XlWindowState.xlMaximized
             };
-            excelReport.Workbooks.Add();
+            Excel.Workbook workBook = excelReport.Workbooks.Add();
             Excel.Worksheet workSheet = (Excel.Worksheet)excelReport.ActiveSheet;
-            workSheet.Cells[1, "A"] = "1";
-            workSheet.Cells[1, "B"] = "2";
 
+            try
+            {
+                workSheet = workBook.ActiveSheet;
+                workSheet.Name = "Экспорт";
+
+                int cellRowIndex = 1;
+                int cellColumnIndex = 1;
+
+                //Loop through each row and read value from each column. 
+                for (int i = -1; i < DataGridViewFilter.Rows.Count; i++)
+                {
+                    for (int j = 0; j < DataGridViewFilter.Columns.Count; j++)
+                    {
+                        // Excel index starts from 1,1. As first Row would have the Column headers, adding a condition check. 
+                        if (cellRowIndex == 1)
+                        {
+                            workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Columns[j].HeaderText;
+                        }
+                        else
+                        {
+                            workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Rows[i].Cells[j].Value.ToString();
+                        }
+                        cellColumnIndex++;
+                    }
+                    cellColumnIndex = 1;
+                    cellRowIndex++;
+                }
+
+                //Getting the location and file name of the excel to save from user. 
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    Filter = "Excel files (*.xlsx)|*.xlsx",
+                    FilterIndex = 2
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    workBook.SaveAs(saveDialog.FileName);
+                    MessageBox.Show("Экспорт успешно выполнен.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                excelReport.Quit();
+                workBook = null;
+                excelReport = null;
+            }
         }
 
         private void ButtonExportToExcel_Click(object sender, EventArgs e)
