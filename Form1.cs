@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Employees
@@ -774,10 +775,10 @@ namespace Employees
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT w.NameWorker 'ФИО работника', a.Area 'Участок', p.Position 'Должность', " +
-                                    "s.NameSIZ 'СИЗ / Прибор', i.DateOfIssueSIZ 'Дата выдачи', i.WorkabilitySIZ 'Годность', i.Notation 'Примечание' " +
-                                    "FROM Areas AS a, Issue AS i, Workers AS w, SIZ AS s, Positions AS p " +
-                                    "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker;";
+                    string sqlcmd = "SELECT w.NameWorker 'ФИО работника', " + //a.Area 'Участок', p.Position 'Должность', " +
+                                    "s.NameSIZ 'СИЗ / Прибор', i.WorkabilitySIZ 'Годность' " + //i.DateOfIssueSIZ 'Дата выдачи', i.Notation 'Примечание' " +
+                                    "FROM Issue AS i, Workers AS w, SIZ AS s " + //Areas AS a, Positions AS p 
+                                    "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ;"; //AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
                         adapt.Fill(dtFilter);
@@ -791,7 +792,7 @@ namespace Employees
                 foreach (DataGridViewRow row in DataGridViewFilter.Rows)
                 {
                     sourceNames.Add(Convert.ToString(row.Cells[0].Value));
-                    sourceSIZ.Add(Convert.ToString(row.Cells[3].Value));
+                    sourceSIZ.Add(Convert.ToString(row.Cells[1].Value));
                 }
                 textBoxNameWorkerFilter.AutoCompleteCustomSource = sourceNames;
                 textBoxNameSIZFilter.AutoCompleteCustomSource = sourceSIZ;
@@ -803,12 +804,12 @@ namespace Employees
 
         }
 
-        private void ComboBoxFilterArea_SelectedIndexChanged(object sender, EventArgs e)
+       /* private void ComboBoxFilterArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
             dv.RowFilter = string.Format("Участок LIKE '%{0}%'", comboBoxAreaFilter.Text);
             DataGridViewFilter.DataSource = dv;
-        }
+        } */
 
         private void ButtonResetFilter_Click(object sender, EventArgs e)
         {
@@ -1010,73 +1011,73 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
         }
-
+        
         private void DisplayInExcel()
         {
-            var excelReport = new Excel.Application
-            {
-                Visible = true,
-                WindowState = Excel.XlWindowState.xlMaximized
-            };
+            Excel.Application excelReport = new Excel.Application();
             Excel.Workbook workBook = excelReport.Workbooks.Add();
             Excel.Worksheet workSheet = (Excel.Worksheet)excelReport.ActiveSheet;
 
             try
             {
                 workSheet = workBook.ActiveSheet;
-                workSheet.Name = "Экспорт";
+                workSheet.Name = "Экспорт";  
 
-                int cellRowIndex = 1;
+                int cellRowIndex = 3;
                 int cellColumnIndex = 1;
 
-                //Loop through each row and read value from each column. 
-                for (int i = -1; i < DataGridViewFilter.Rows.Count; i++)
+                if (DataGridViewFilter.Rows.Count == 0)
                 {
-                    for (int j = 0; j < DataGridViewFilter.Columns.Count; j++)
-                    {
-                        // Excel index starts from 1,1. As first Row would have the Column headers, adding a condition check. 
-                        if (cellRowIndex == 1)
-                        {
-                            workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Columns[j].HeaderText;
-                        }
-                        else
-                        {
-                            workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Rows[i].Cells[j].Value.ToString();
-                        }
-                        cellColumnIndex++;
-                    }
-                    cellColumnIndex = 1;
-                    cellRowIndex++;
+                    MessageBox.Show("Пустой фильтр, нечего экспортировать.", "Упс!");
                 }
-
-                //Getting the location and file name of the excel to save from user. 
-                SaveFileDialog saveDialog = new SaveFileDialog
+                else
                 {
-                    Filter = "Excel files (*.xlsx)|*.xlsx",
-                    FilterIndex = 2
-                };
+                    Excel.Range caption = workSheet.Range[workSheet.Cells[1, 3], workSheet.Cells[1, 4]];
+                    caption.Merge(Type.Missing);
+                    caption.Font.Size = 16;
+                    caption.Font.Bold = true;
+                    caption.Value = "Выдача СИЗ / Приборов сотрудникам";
+                    caption.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
-                if (saveDialog.ShowDialog() == DialogResult.OK)
-                {
-                    workBook.SaveAs(saveDialog.FileName);
-                    MessageBox.Show("Экспорт успешно выполнен.");
+                    for (int i = -1; i < DataGridViewFilter.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < DataGridViewFilter.Columns.Count; j++)
+                        { 
+                            if (cellRowIndex == 3)
+                            {
+                                workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Columns[j].HeaderText;
+                                (workSheet.Cells[cellRowIndex, cellColumnIndex] as Excel.Range).Font.Bold = true;
+                            }
+                            else
+                            {
+                                workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Rows[i].Cells[j].Value.ToString();
+                            }
+                            cellColumnIndex++;
+                        }
+                        cellColumnIndex = 1;
+                        cellRowIndex++;
+                    }
+                    workSheet.Columns.AutoFit();
+                    excelReport.Visible = true;
+                    excelReport.WindowState = Excel.XlWindowState.xlMaximized;
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                excelReport.Quit();
-                workBook = null;
-                excelReport = null;
-            }
+            //finally
+            //{
+            //    workBook.Save();
+            //    workBook.Close(false);
+            //    excelReport.Quit();
+            //}
         }
 
         private void ButtonExportToExcel_Click(object sender, EventArgs e)
         {
             DisplayInExcel();
-        }
+        }  
     }
 }

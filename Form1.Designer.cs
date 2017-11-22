@@ -194,7 +194,7 @@
             this.comboBoxAreaFilter.Name = "comboBoxAreaFilter";
             this.comboBoxAreaFilter.Size = new System.Drawing.Size(197, 24);
             this.comboBoxAreaFilter.TabIndex = 59;
-            this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterArea_SelectedIndexChanged);
+          //this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterArea_SelectedIndexChanged);
             // 
             // ButtonExportToExcel
             // 
