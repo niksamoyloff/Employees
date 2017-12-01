@@ -43,7 +43,7 @@ namespace Employees
             HideColumns();
             ComboBoxAreaAreas_LoadData();
             ComboBoxIssueSIZ_LoadData();
-            ComboBoxIssueNameWorker_LoadData();
+            TextBoxIssueNameWorker_LoadData();
             ComboBoxWorkerGroups_LoadData();
         }
 
@@ -599,7 +599,7 @@ namespace Employees
             try
             {
                 ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
-                comboBoxIssueNameWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
+                textBoxIssueNameWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
                 comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
                 comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
                 dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
@@ -620,12 +620,12 @@ namespace Employees
         {
             try
             {
-                if (comboBoxIssueNameWorker.Text != "")
+                if (textBoxIssueNameWorker.Text != "")
                 {
                     bool flag = false; // Flag for detecting last item in column
                     for (int i = 0; i < DataGridViewIssue.RowCount; i++)
                     {
-                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == comboBoxIssueNameWorker.Text
+                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == textBoxIssueNameWorker.Text
                             && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
@@ -639,7 +639,7 @@ namespace Employees
                     }
                     if (!flag) // Last item detected
                     {
-                        paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
+                        paramsIssue.Add(new SqlParameter("@issueWorker", textBoxIssueNameWorker.Text));
                         paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
                         paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
                         paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
@@ -672,7 +672,7 @@ namespace Employees
                     bool flag = false; // Flag for detecting last item in column
                     for (int i = 0; i < DataGridViewIssue.RowCount; i++)
                     {
-                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == comboBoxIssueNameWorker.Text
+                        if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == textBoxIssueNameWorker.Text
                             && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
@@ -689,7 +689,7 @@ namespace Employees
                         if (MessageBox.Show("Изменить запись?", "Изменение записи", MessageBoxButtons.OKCancel) == DialogResult.OK)
                         {
                             paramsIssue.Add(new SqlParameter("@id", ID));
-                            paramsIssue.Add(new SqlParameter("@issueWorker", comboBoxIssueNameWorker.Text));
+                            paramsIssue.Add(new SqlParameter("@issueWorker", textBoxIssueNameWorker.Text));
                             paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
                             paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
                             paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
@@ -755,7 +755,8 @@ namespace Employees
 
         private void DataGridViewWorkers_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            ComboBoxIssueNameWorker_LoadData();
+            //ComboBoxIssueNameWorker_LoadData();
+            TextBoxIssueNameWorker_LoadData();
         }
 
         private void DataGridViewSIZ_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -775,16 +776,15 @@ namespace Employees
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT w.NameWorker 'ФИО работника', " + //a.Area 'Участок', p.Position 'Должность', " +
-                                    "s.NameSIZ 'СИЗ / Прибор', i.WorkabilitySIZ 'Годность' " + //i.DateOfIssueSIZ 'Дата выдачи', i.Notation 'Примечание' " +
+                    string sqlcmd = "SELECT s.NameSIZ 'СИЗ / Прибор', s.InventoryNumberSIZ 'Инвентарный номер', "+ //a.Area 'Участок', p.Position 'Должность', " +
+                                    "i.WorkabilitySIZ 'Годность', w.NameWorker 'ФИО работника' " + //i.DateOfIssueSIZ 'Дата выдачи', i.Notation 'Примечание' " +
                                     "FROM Issue AS i, Workers AS w, SIZ AS s " + //Areas AS a, Positions AS p 
                                     "WHERE i.IdWorker = w.IdWorker AND i.IdSIZ = s.IdSIZ;"; //AND a.IdArea = w.AreaWorker AND p.IdPosition = w.PositionWorker
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
                         adapt.Fill(dtFilter);
                         DataGridViewFilter.DataSource = dtFilter;
-                    }
-                        
+                    }                        
                 }
 
                 var sourceNames = new AutoCompleteStringCollection();
@@ -834,7 +834,7 @@ namespace Employees
         private void ButtonFilterShowDate_Click(object sender, EventArgs e)
         {
             DataView dv = new DataView(dtFilter);
-            dv.RowFilter = string.Format("[Дата выдачи] >= '{0}' AND [Дата выдачи] <= '{1}'", dateTimePickerFilterStart.Value.ToShortDateString(), dateTimePickerFilterEnd.Value.ToShortDateString());
+            dv.RowFilter = string.Format("[Годность] >= '{0}' AND [Годность] <= '{1}'", dateTimePickerFilterStart.Value.ToShortDateString(), dateTimePickerFilterEnd.Value.ToShortDateString());
             DataGridViewFilter.DataSource = dv;
         }
 
@@ -880,6 +880,7 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
+
         private void ComboBoxAreaAreas_LoadData()
         {
             try
@@ -903,11 +904,6 @@ namespace Employees
                         comboBoxNameArea.DataSource = dtComboBoxArea;
                         comboBoxNameArea.DisplayMember = "Area";
                         comboBoxNameArea.SelectedIndex = -1;
-
-                        comboBoxAreaFilter.BindingContext = new BindingContext();
-                        comboBoxAreaFilter.DataSource = dtComboBoxArea;
-                        comboBoxAreaFilter.DisplayMember = "Area";
-                        comboBoxAreaFilter.SelectedIndex = -1;
                     }
                 }
             }
@@ -916,6 +912,7 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
+
         private void ComboBoxWorkerGroups_LoadData()
         {
             try
@@ -940,6 +937,7 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка");
             }
         }
+
         private void ComboBoxIssueSIZ_LoadData()
         {
             try
@@ -964,6 +962,7 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
         }
+
         private void ComboBoxIssueTypeOfSIZ_LoadData()
         {
             try
@@ -987,29 +986,17 @@ namespace Employees
                 MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
         }
-        private void ComboBoxIssueNameWorker_LoadData()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
-                {
-                    conn.Open();
-                    string sqlcmd = "SELECT DISTINCT Workers.NameWorker FROM Workers;";
-                    using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
-                    {
-                        DataTable dtComboBoxNameWorker = new DataTable();
-                        adapt.Fill(dtComboBoxNameWorker);
 
-                        comboBoxIssueNameWorker.DataSource = dtComboBoxNameWorker;
-                        comboBoxIssueNameWorker.DisplayMember = "NameWorker";
-                        comboBoxIssueNameWorker.SelectedIndex = -1;
-                    }
-                }
-            }
-            catch (Exception ex)
+        private void TextBoxIssueNameWorker_LoadData()
+        {
+            var sourceNames = new AutoCompleteStringCollection();
+
+            foreach (DataGridViewRow row in DataGridViewWorkers.Rows)
             {
-                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
+                sourceNames.Add(Convert.ToString(row.Cells[1].Value));
             }
+
+            textBoxIssueNameWorker.AutoCompleteCustomSource = sourceNames;
         }
         
         private void DisplayInExcel()
@@ -1078,6 +1065,6 @@ namespace Employees
         private void ButtonExportToExcel_Click(object sender, EventArgs e)
         {
             DisplayInExcel();
-        }  
+        }
     }
 }

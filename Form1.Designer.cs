@@ -33,11 +33,9 @@
             this.tabPageFilter = new System.Windows.Forms.TabPage();
             this.ButtonShowDateFilter = new System.Windows.Forms.Button();
             this.ButtonResetFilter = new System.Windows.Forms.Button();
-            this.comboBoxAreaFilter = new System.Windows.Forms.ComboBox();
             this.ButtonExportToExcel = new System.Windows.Forms.Button();
             this.dateTimePickerFilterEnd = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.textBoxNameSIZFilter = new System.Windows.Forms.TextBox();
             this.dateTimePickerFilterStart = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
@@ -86,7 +84,7 @@
             this.textBoxNameSIZ = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.comboBoxIssueNameWorker = new System.Windows.Forms.ComboBox();
+            this.textBoxIssueNameWorker = new System.Windows.Forms.TextBox();
             this.comboBoxTypeOfSIZ = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.dateTimePickerIssueWorkability = new System.Windows.Forms.DateTimePicker();
@@ -145,11 +143,9 @@
             // 
             this.tabPageFilter.Controls.Add(this.ButtonShowDateFilter);
             this.tabPageFilter.Controls.Add(this.ButtonResetFilter);
-            this.tabPageFilter.Controls.Add(this.comboBoxAreaFilter);
             this.tabPageFilter.Controls.Add(this.ButtonExportToExcel);
             this.tabPageFilter.Controls.Add(this.dateTimePickerFilterEnd);
             this.tabPageFilter.Controls.Add(this.label17);
-            this.tabPageFilter.Controls.Add(this.label18);
             this.tabPageFilter.Controls.Add(this.textBoxNameSIZFilter);
             this.tabPageFilter.Controls.Add(this.dateTimePickerFilterStart);
             this.tabPageFilter.Controls.Add(this.label14);
@@ -178,29 +174,19 @@
             // 
             // ButtonResetFilter
             // 
-            this.ButtonResetFilter.Location = new System.Drawing.Point(709, 61);
+            this.ButtonResetFilter.Location = new System.Drawing.Point(958, 27);
             this.ButtonResetFilter.Name = "ButtonResetFilter";
-            this.ButtonResetFilter.Size = new System.Drawing.Size(189, 37);
+            this.ButtonResetFilter.Size = new System.Drawing.Size(189, 74);
             this.ButtonResetFilter.TabIndex = 60;
             this.ButtonResetFilter.Text = "Сбросить фильтр";
             this.ButtonResetFilter.UseVisualStyleBackColor = true;
             this.ButtonResetFilter.Click += new System.EventHandler(this.ButtonResetFilter_Click);
             // 
-            // comboBoxAreaFilter
-            // 
-            this.comboBoxAreaFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAreaFilter.FormattingEnabled = true;
-            this.comboBoxAreaFilter.Location = new System.Drawing.Point(1007, 27);
-            this.comboBoxAreaFilter.Name = "comboBoxAreaFilter";
-            this.comboBoxAreaFilter.Size = new System.Drawing.Size(197, 24);
-            this.comboBoxAreaFilter.TabIndex = 59;
-          //this.comboBoxAreaFilter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterArea_SelectedIndexChanged);
-            // 
             // ButtonExportToExcel
             // 
-            this.ButtonExportToExcel.Location = new System.Drawing.Point(1070, 61);
+            this.ButtonExportToExcel.Location = new System.Drawing.Point(644, 64);
             this.ButtonExportToExcel.Name = "ButtonExportToExcel";
-            this.ButtonExportToExcel.Size = new System.Drawing.Size(134, 37);
+            this.ButtonExportToExcel.Size = new System.Drawing.Size(189, 37);
             this.ButtonExportToExcel.TabIndex = 58;
             this.ButtonExportToExcel.Text = "Экспорт в Excel";
             this.ButtonExportToExcel.UseVisualStyleBackColor = true;
@@ -222,16 +208,6 @@
             this.label17.Size = new System.Drawing.Size(29, 18);
             this.label17.TabIndex = 56;
             this.label17.Text = "по:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(925, 28);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(70, 18);
-            this.label18.TabIndex = 55;
-            this.label18.Text = "Участок:";
             // 
             // textBoxNameSIZFilter
             // 
@@ -754,7 +730,7 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.comboBoxIssueNameWorker);
+            this.tabPage5.Controls.Add(this.textBoxIssueNameWorker);
             this.tabPage5.Controls.Add(this.comboBoxTypeOfSIZ);
             this.tabPage5.Controls.Add(this.label21);
             this.tabPage5.Controls.Add(this.dateTimePickerIssueWorkability);
@@ -778,14 +754,14 @@
             this.tabPage5.Text = "Выдача СИЗ/приборов";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // comboBoxIssueNameWorker
+            // textBoxIssueNameWorker
             // 
-            this.comboBoxIssueNameWorker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxIssueNameWorker.FormattingEnabled = true;
-            this.comboBoxIssueNameWorker.Location = new System.Drawing.Point(33, 48);
-            this.comboBoxIssueNameWorker.Name = "comboBoxIssueNameWorker";
-            this.comboBoxIssueNameWorker.Size = new System.Drawing.Size(386, 24);
-            this.comboBoxIssueNameWorker.TabIndex = 51;
+            this.textBoxIssueNameWorker.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxIssueNameWorker.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBoxIssueNameWorker.Location = new System.Drawing.Point(33, 48);
+            this.textBoxIssueNameWorker.Name = "textBoxIssueNameWorker";
+            this.textBoxIssueNameWorker.Size = new System.Drawing.Size(377, 22);
+            this.textBoxIssueNameWorker.TabIndex = 51;
             // 
             // comboBoxTypeOfSIZ
             // 
@@ -1054,7 +1030,6 @@
         private System.Windows.Forms.ComboBox comboBoxIssueSIZ;
         private System.Windows.Forms.TextBox textBoxNameWorkerFilter;
         private System.Windows.Forms.DataGridView DataGridViewFilter;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBoxNameSIZFilter;
         private System.Windows.Forms.DateTimePicker dateTimePickerFilterStart;
         private System.Windows.Forms.Label label14;
@@ -1069,7 +1044,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox comboBoxTypeOfSIZ;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ComboBox comboBoxAreaFilter;
         private System.Windows.Forms.Button ButtonResetFilter;
         private System.Windows.Forms.Button ButtonShowDateFilter;
         private System.Windows.Forms.BindingSource databaseOfEmployeesDataSetBindingSource;
@@ -1078,7 +1052,7 @@
         private DatabaseOfEmployeesDataSetTableAdapters.AreasTableAdapter areasTableAdapter;
         private System.Windows.Forms.BindingSource positionsBindingSource;
         private DatabaseOfEmployeesDataSetTableAdapters.PositionsTableAdapter positionsTableAdapter;
-        private System.Windows.Forms.ComboBox comboBoxIssueNameWorker;
+        private System.Windows.Forms.TextBox textBoxIssueNameWorker;
     }
 }
 
