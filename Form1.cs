@@ -745,23 +745,51 @@ namespace Employees
         /// 
         private void DataGridViewArea_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
+            foreach (DataGridViewRow row in DataGridViewArea.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewArea.RowHeadersWidth = 55;
+            }
             ComboBoxAreaAreas_LoadData();
         }
 
         private void DataGridViewPositions_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
+            foreach (DataGridViewRow row in DataGridViewPositions.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewPositions.RowHeadersWidth = 55;
+            }
             ComboBoxWorkerPosition_LoadData();
         }
 
         private void DataGridViewWorkers_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            //ComboBoxIssueNameWorker_LoadData();
+            foreach (DataGridViewRow row in DataGridViewWorkers.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewWorkers.RowHeadersWidth = 55;
+            }
             TextBoxIssueNameWorker_LoadData();
         }
 
         private void DataGridViewSIZ_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
+            foreach (DataGridViewRow row in DataGridViewSIZ.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewSIZ.RowHeadersWidth = 55;
+            }
             ComboBoxIssueSIZ_LoadData();
+        }
+
+        private void DataGridViewIssue_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            foreach (DataGridViewRow row in DataGridViewIssue.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewIssue.RowHeadersWidth = 55;
+            }
         }
 
         /// <summary>
@@ -791,8 +819,8 @@ namespace Employees
                 var sourceSIZ = new AutoCompleteStringCollection();
                 foreach (DataGridViewRow row in DataGridViewFilter.Rows)
                 {
-                    sourceNames.Add(Convert.ToString(row.Cells[0].Value));
-                    sourceSIZ.Add(Convert.ToString(row.Cells[1].Value));
+                    sourceNames.Add(Convert.ToString(row.Cells[3].Value));
+                    sourceSIZ.Add(Convert.ToString(row.Cells[0].Value));
                 }
                 textBoxNameWorkerFilter.AutoCompleteCustomSource = sourceNames;
                 textBoxNameSIZFilter.AutoCompleteCustomSource = sourceSIZ;
@@ -804,12 +832,21 @@ namespace Employees
 
         }
 
-       /* private void ComboBoxFilterArea_SelectedIndexChanged(object sender, EventArgs e)
+        private void DataGridViewFilter_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            DataView dv = new DataView(dtFilter);
-            dv.RowFilter = string.Format("Участок LIKE '%{0}%'", comboBoxAreaFilter.Text);
-            DataGridViewFilter.DataSource = dv;
-        } */
+            foreach (DataGridViewRow row in DataGridViewFilter.Rows)
+            {
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                DataGridViewFilter.RowHeadersWidth = 55;
+            }
+        }
+
+        /* private void ComboBoxFilterArea_SelectedIndexChanged(object sender, EventArgs e)
+         {
+             DataView dv = new DataView(dtFilter);
+             dv.RowFilter = string.Format("Участок LIKE '%{0}%'", comboBoxAreaFilter.Text);
+             DataGridViewFilter.DataSource = dv;
+         } */
 
         private void ButtonResetFilter_Click(object sender, EventArgs e)
         {
@@ -845,7 +882,7 @@ namespace Employees
 
         private void ComboBoxIssueSIZ_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            ComboBoxIssueTypeOfSIZ_LoadData();
+            ComboBoxIssueInventoryNumberSIZ_LoadData();
         }
 
         private void ComboBoxWorkerArea_SelectedValueChanged(object sender, EventArgs e)
@@ -855,7 +892,7 @@ namespace Employees
 
         private void ComboBoxIssueSIZ_SelectedValueChanged(object sender, EventArgs e)
         {
-            ComboBoxIssueTypeOfSIZ_LoadData();
+            ComboBoxIssueInventoryNumberSIZ_LoadData();
         }
 
         private void ComboBoxWorkerPosition_LoadData()
@@ -963,21 +1000,21 @@ namespace Employees
             }
         }
 
-        private void ComboBoxIssueTypeOfSIZ_LoadData()
+        private void ComboBoxIssueInventoryNumberSIZ_LoadData()
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DatabaseOfEmployeesConnectionString))
                 {
                     conn.Open();
-                    string sqlcmd = "SELECT DISTINCT SIZ.TypeOfSIZ FROM SIZ WHERE SIZ.NameSIZ LIKE N'" + comboBoxIssueSIZ.Text + "' ORDER BY TypeOfSIZ DESC;";
+                    string sqlcmd = "SELECT DISTINCT SIZ.InventoryNumberSIZ FROM SIZ WHERE SIZ.NameSIZ LIKE N'" + comboBoxIssueSIZ.Text + "' ORDER BY InventoryNumberSIZ DESC;";
                     using (SqlDataAdapter adapt = new SqlDataAdapter(sqlcmd, conn))
                     {
                         DataTable dtComboBoxTypeOfSIZ = new DataTable();
                         adapt.Fill(dtComboBoxTypeOfSIZ);
 
                         comboBoxTypeOfSIZ.DataSource = dtComboBoxTypeOfSIZ;
-                        comboBoxTypeOfSIZ.DisplayMember = "TypeOfSIZ";
+                        comboBoxTypeOfSIZ.DisplayMember = "InventoryNumberSIZ";
                     }
                 }
             }
@@ -1066,5 +1103,6 @@ namespace Employees
         {
             DisplayInExcel();
         }
+
     }
 }
