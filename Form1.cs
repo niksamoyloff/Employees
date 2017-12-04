@@ -601,7 +601,7 @@ namespace Employees
                 ID = Convert.ToInt32(DataGridViewIssue.Rows[e.RowIndex].Cells[0].Value.ToString());
                 textBoxIssueNameWorker.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[1].Value.ToString();
                 comboBoxIssueSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[2].Value.ToString();
-                comboBoxTypeOfSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
+                comboBoxInventNumbSIZ.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[3].Value.ToString();
                 dateTimePickerIssueSIZ.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[4].Value.ToString());
                 dateTimePickerIssueWorkability.Value = Convert.ToDateTime(DataGridViewIssue.Rows[e.RowIndex].Cells[5].Value.ToString());
                 textBoxNotationOfIssue.Text = DataGridViewIssue.Rows[e.RowIndex].Cells[6].Value.ToString();
@@ -627,7 +627,7 @@ namespace Employees
                     {
                         if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == textBoxIssueNameWorker.Text
                             && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
-                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxInventNumbSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
                             && DataGridViewIssue.Rows[i].Cells[5].Value.ToString() == dateTimePickerIssueWorkability.Value.ToShortDateString()
                             && DataGridViewIssue.Rows[i].Cells[6].Value.ToString() == textBoxNotationOfIssue.Text)
@@ -641,7 +641,7 @@ namespace Employees
                     {
                         paramsIssue.Add(new SqlParameter("@issueWorker", textBoxIssueNameWorker.Text));
                         paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
-                        paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
+                        paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxInventNumbSIZ.Text));
                         paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
                         paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
                         paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
@@ -674,7 +674,7 @@ namespace Employees
                     {
                         if (DataGridViewIssue.Rows[i].Cells[1].Value.ToString() == textBoxIssueNameWorker.Text
                             && DataGridViewIssue.Rows[i].Cells[2].Value.ToString() == comboBoxIssueSIZ.Text
-                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxTypeOfSIZ.Text
+                            && DataGridViewIssue.Rows[i].Cells[3].Value.ToString() == comboBoxInventNumbSIZ.Text
                             && DataGridViewIssue.Rows[i].Cells[4].Value.ToString() == dateTimePickerIssueSIZ.Value.ToShortDateString()
                             && DataGridViewIssue.Rows[i].Cells[5].Value.ToString() == dateTimePickerIssueWorkability.Value.ToShortDateString()
                             && DataGridViewIssue.Rows[i].Cells[6].Value.ToString() == textBoxNotationOfIssue.Text)
@@ -691,7 +691,7 @@ namespace Employees
                             paramsIssue.Add(new SqlParameter("@id", ID));
                             paramsIssue.Add(new SqlParameter("@issueWorker", textBoxIssueNameWorker.Text));
                             paramsIssue.Add(new SqlParameter("@issueSIZ", comboBoxIssueSIZ.Text));
-                            paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxTypeOfSIZ.Text));
+                            paramsIssue.Add(new SqlParameter("@typeOfSIZ", comboBoxInventNumbSIZ.Text));
                             paramsIssue.Add(new SqlParameter("@issueDate", dateTimePickerIssueSIZ.Value.ToShortDateString()));
                             paramsIssue.Add(new SqlParameter("@issueNotation", textBoxNotationOfIssue.Text));
                             paramsIssue.Add(new SqlParameter("@workSIZ", dateTimePickerIssueWorkability.Value.ToShortDateString()));
@@ -1013,8 +1013,8 @@ namespace Employees
                         DataTable dtComboBoxTypeOfSIZ = new DataTable();
                         adapt.Fill(dtComboBoxTypeOfSIZ);
 
-                        comboBoxTypeOfSIZ.DataSource = dtComboBoxTypeOfSIZ;
-                        comboBoxTypeOfSIZ.DisplayMember = "InventoryNumberSIZ";
+                        comboBoxInventNumbSIZ.DataSource = dtComboBoxTypeOfSIZ;
+                        comboBoxInventNumbSIZ.DisplayMember = "InventoryNumberSIZ";
                     }
                 }
             }
@@ -1056,7 +1056,7 @@ namespace Employees
                 }
                 else
                 {
-                    Excel.Range caption = workSheet.Range[workSheet.Cells[1, 3], workSheet.Cells[1, 4]];
+                    Excel.Range caption = workSheet.Range[workSheet.Cells[1, 1], workSheet.Cells[1, 5]];
                     caption.Merge(Type.Missing);
                     caption.Font.Size = 16;
                     caption.Font.Bold = true;
@@ -1066,16 +1066,29 @@ namespace Employees
                     for (int i = -1; i < DataGridViewFilter.Rows.Count; i++)
                     {
                         for (int j = 0; j < DataGridViewFilter.Columns.Count; j++)
-                        { 
+                        {                            
                             if (cellRowIndex == 3)
                             {
+                                if (cellColumnIndex == 1)
+                                {
+                                    workSheet.Cells[cellRowIndex, 1] = "№";
+                                    ((Excel.Range)workSheet.Cells[cellRowIndex, 1]).Font.Bold = true;
+                                    cellColumnIndex++;
+                                }
                                 workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Columns[j].HeaderText;
-                                (workSheet.Cells[cellRowIndex, cellColumnIndex] as Excel.Range).Font.Bold = true;
+                                ((Excel.Range)workSheet.Cells[cellRowIndex, cellColumnIndex]).Font.Bold = true;
                             }
                             else
                             {
-                                workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Rows[i].Cells[j].Value.ToString();
+                                if (cellColumnIndex == 1)
+                                {
+                                    workSheet.Cells[cellRowIndex, 1] = DataGridViewFilter.Rows[i].Index + 1;
+                                    cellColumnIndex++;
+                                }
+                                workSheet.Cells[cellRowIndex, cellColumnIndex] = DataGridViewFilter.Rows[i].Cells[j].Value.ToString().Replace(" 0:00:00", "");
+                                ((Excel.Range)workSheet.Cells[cellRowIndex, cellColumnIndex]).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
                             }
+                            ((Excel.Range)workSheet.Cells[cellRowIndex, cellColumnIndex]).Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                             cellColumnIndex++;
                         }
                         cellColumnIndex = 1;
@@ -1084,12 +1097,11 @@ namespace Employees
                     workSheet.Columns.AutoFit();
                     excelReport.Visible = true;
                     excelReport.WindowState = Excel.XlWindowState.xlMaximized;
-
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Произошла непредвиденная ошибка.");
             }
             //finally
             //{
